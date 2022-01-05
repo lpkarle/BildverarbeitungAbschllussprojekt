@@ -116,6 +116,7 @@ int main(int argc, const char * argv[]) {
 */
 
 // ------------------------------------------------- RESIZE AND CROP IMG
+/*
 int main(int argc, const char * argv[]) {
     
     string path = "/Users/lukaskarle/Dev/C++/OpenCV/TestOpenCV/TestOpenCV/assets/rabbit.jpeg";
@@ -135,5 +136,36 @@ int main(int argc, const char * argv[]) {
  
     waitKey(0);
     
+    return 0;
+}
+*/
+
+int main(int argc, const char * argv[]) {
+    
+    VideoCapture videoCapture(0);
+    
+    if (!videoCapture.isOpened()) {
+        cout << "Unable to connect to webcam"  << endl;
+        return -1;
+    }
+    
+    while(true) {
+        
+        Mat frame, frameGrey, frameBlur, frameCanny;
+        videoCapture >> frame;
+        if(frame.empty()) break;
+        
+        cvtColor(frame, frameGrey, COLOR_BGR2GRAY);
+        GaussianBlur(frame, frameBlur, Size(3,3), 3, 0);
+        Canny(frameBlur, frameCanny, 50, 150);
+        
+        imshow("Camera feed", frame);       // normal
+        imshow("Camera grey", frameGrey);   // grey
+        imshow("Camera blur", frameBlur);   // blur
+        imshow("Camera canny", frameCanny); // canny
+        
+        if (waitKey(10) == 27) break;
+    }
+    videoCapture.release();
     return 0;
 }
