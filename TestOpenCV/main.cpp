@@ -75,6 +75,7 @@ int main(int argc, const char * argv[]) {
 */
 
 // ------------------------------------------------- BASIC IMAGE FUNCTION
+/*
 int main(int argc, const char * argv[]) {
     
     string path = "/Users/lukaskarle/Dev/C++/OpenCV/TestOpenCV/TestOpenCV/assets/rabbit.jpeg";
@@ -112,4 +113,27 @@ int main(int argc, const char * argv[]) {
     
     return 0;
 }
+*/
 
+// ------------------------------------------------- RESIZE AND CROP IMG
+int main(int argc, const char * argv[]) {
+    
+    string path = "/Users/lukaskarle/Dev/C++/OpenCV/TestOpenCV/TestOpenCV/assets/rabbit.jpeg";
+    Mat img = imread(path);
+    Mat imgResize, imgCrop;
+    
+    resize(img, imgResize, Size(), 2, 2);
+    
+    // Crop is important to get information about an region of the img
+    // roi -> region of interest (Bildausschnitt erzeugen)
+    Rect roi(75, 75, 150, 150);
+    imgCrop = imgResize(roi);
+    
+    imshow("Image", img);
+    imshow("Image Resize", imgResize);
+    imshow("Image Crop", imgCrop);
+ 
+    waitKey(0);
+    
+    return 0;
+}
