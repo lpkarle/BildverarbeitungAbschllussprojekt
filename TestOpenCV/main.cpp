@@ -52,6 +52,7 @@ int main(int argc, const char * argv[]) {
 */
 
 // ------------------------------------------------- READ WEBCAM
+/*
 int main(int argc, const char * argv[]) {
     
     VideoCapture videoCapture(0);
@@ -71,3 +72,44 @@ int main(int argc, const char * argv[]) {
     videoCapture.release();
     return 0;
 }
+*/
+
+// ------------------------------------------------- BASIC IMAGE FUNCTION
+int main(int argc, const char * argv[]) {
+    
+    string path = "/Users/lukaskarle/Dev/C++/OpenCV/TestOpenCV/TestOpenCV/assets/rabbit.jpeg";
+    Mat img = imread(path);
+    Mat imgGrey;
+    Mat imgBlur;
+    Mat imgCanny1, imgCanny2;
+    Mat imgDilation, imgErode;
+    
+    cvtColor(img, imgGrey, COLOR_BGR2GRAY); // --------- to grey
+    GaussianBlur(img, imgBlur, Size(3,3), 3, 0); // --------- to grey
+    
+    // mostly before using cenny a little bit of blur is used
+    Canny(imgBlur, imgCanny1, 50, 150);
+    Canny(imgBlur, imgCanny2, 25, 75);
+    
+    // for edge detection "erweitern"
+    Mat kernel = getStructuringElement(MORPH_RECT, Size(3, 3));
+    dilate(imgCanny1, imgDilation, kernel);
+    erode(imgDilation, imgErode, kernel);
+    
+    if (img.empty()) {
+        cout << "Image not found or empty!" << endl;
+        return 0;
+    }
+    
+    imshow("Image", img);
+    imshow("Image Grey", imgGrey);
+    imshow("Image Blur", imgBlur);
+    imshow("Image Canny", imgCanny1);
+    imshow("Image Canny2", imgCanny2);
+    imshow("Image Dilation", imgDilation);
+    imshow("Image Erode", imgErode);
+    waitKey(0);
+    
+    return 0;
+}
+
