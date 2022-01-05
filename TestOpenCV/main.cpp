@@ -140,6 +140,8 @@ int main(int argc, const char * argv[]) {
 }
 */
 
+// ------------------------------------------------- WEBCAM EDGES
+/*
 int main(int argc, const char * argv[]) {
     
     VideoCapture videoCapture(0);
@@ -151,21 +153,46 @@ int main(int argc, const char * argv[]) {
     
     while(true) {
         
-        Mat frame, frameGrey, frameBlur, frameCanny;
+        Mat frame, frameGrey, frameBlur, frameCanny, frameDilation, frameErode;
         videoCapture >> frame;
         if(frame.empty()) break;
         
         cvtColor(frame, frameGrey, COLOR_BGR2GRAY);
-        GaussianBlur(frame, frameBlur, Size(3,3), 3, 0);
+        GaussianBlur(frame, frameBlur, Size(5,5), 5, 0);
         Canny(frameBlur, frameCanny, 50, 150);
+        
+        Mat kernel = getStructuringElement(MORPH_RECT, Size(3, 3));
+        dilate(frameCanny, frameDilation, kernel);
+        erode(frameDilation, frameErode, kernel);
         
         imshow("Camera feed", frame);       // normal
         imshow("Camera grey", frameGrey);   // grey
         imshow("Camera blur", frameBlur);   // blur
         imshow("Camera canny", frameCanny); // canny
+        imshow("Image Dilation", frameDilation);
+        imshow("Image Erode", frameErode);
         
         if (waitKey(10) == 27) break;
     }
     videoCapture.release();
+    return 0;
+}
+*/
+
+int main(int argc, const char * argv[]) {
+    
+    // blank image
+    Mat img(512, 512, CV_8UC3, Scalar(255, 255, 255));
+    
+    circle(img, Point(256, 256), 150, Scalar(255,0,0), 10);
+    circle(img, Point(256, 256), 50, Scalar(255,0,0), FILLED);
+    rectangle(img, Point(130, 226), Point(382, 286), Scalar(255, 0, 0), 3);
+    line(img, Point(0,0), Point(512, 512), Scalar(0, 255, 255), 20);
+    
+    putText(img, "well hello there...", Point(50, 50), FONT_ITALIC, 0.75, Scalar(0, 0,255));
+    
+    imshow("Image", img);
+    waitKey(0);
+    
     return 0;
 }
