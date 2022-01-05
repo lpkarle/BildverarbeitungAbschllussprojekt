@@ -24,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		97143F3B2785ABD7009DCB69 /* rabbit.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = rabbit.jpeg; sourceTree = "<group>"; };
+		97143F3E2785C50F009DCB69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		977B7B102719B5A000689448 /* TestOpenCV */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TestOpenCV; sourceTree = BUILT_PRODUCTS_DIR; };
 		977B7B132719B5A000689448 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -68,6 +69,7 @@
 			children = (
 				97143F3A2785ABAE009DCB69 /* assets */,
 				977B7B132719B5A000689448 /* main.cpp */,
+				97143F3E2785C50F009DCB69 /* Info.plist */,
 			);
 			path = TestOpenCV;
 			sourceTree = "<group>";
