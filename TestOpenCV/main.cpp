@@ -179,6 +179,8 @@ int main(int argc, const char * argv[]) {
 }
 */
 
+// ------------------------------------------------- SHAPES AND TEXT
+/*
 int main(int argc, const char * argv[]) {
     
     // blank image
@@ -194,5 +196,160 @@ int main(int argc, const char * argv[]) {
     imshow("Image", img);
     waitKey(0);
     
+    return 0;
+}
+*/
+
+// ------------------------------------------------- SHAPES AND TEXT
+/*
+int main(int argc, const char * argv[]) {
+    
+    string path_without_flash = "/Users/lukaskarle/Dev/C++/OpenCV/TestOpenCV/TestOpenCV/assets/kegeln_1_ohne_blitz.jpg";
+    string path_with_flash = "/Users/lukaskarle/Dev/C++/OpenCV/TestOpenCV/TestOpenCV/assets/kegeln_2_mit_blitz.jpg";
+    
+    Mat img_without_flash = imread(path_without_flash);
+    Mat img_with_flash = imread(path_with_flash);
+    
+    // ----------------------------- color detection
+    Mat img_with_flash_HSV, mask;
+    cvtColor(img_with_flash, img_with_flash_HSV, COLOR_BGR2HSV);
+    // use color range because of lighting effects
+    int hmin = 0, smin = 110, vmin = 153;
+    int hmax = 19, smax = 240, vmax = 255;
+    
+    namedWindow("Trackbars", (640, 200));
+    createTrackbar("Hue Min", "Trackbars", &hmin, 255);
+    createTrackbar("Sat Min", "Trackbars", &smin, 255);
+    createTrackbar("Val Min", "Trackbars", &vmin, 255);
+    createTrackbar("Hue Max", "Trackbars", &hmax, 255);
+    createTrackbar("Sat Max", "Trackbars", &smax, 255);
+    createTrackbar("Val Max", "Trackbars", &vmax, 255);
+    
+    
+    
+    Mat img_without_flash_blur, img_with_flash_blur;
+    Mat img_without_flash_canny, img_with_flash_canny;
+    Mat img_without_flash_dilation, img_with_flash_dilation;
+    Mat img_without_flash_erode, img_with_flash_erode;
+    
+    GaussianBlur(img_without_flash, img_without_flash_blur, Size(3,3), 3, 0);
+    GaussianBlur(img_with_flash, img_with_flash_blur, Size(3,3), 3, 0);
+    
+    // mostly before using cenny a little bit of blur is used
+    Canny(img_without_flash, img_without_flash_canny, 50, 150);
+    Canny(img_with_flash, img_with_flash_canny, 50, 150);
+    
+    // for edge detection "erweitern"
+    Mat kernel = getStructuringElement(MORPH_RECT, Size(3, 3));
+    dilate(img_without_flash_canny, img_without_flash_dilation, kernel);
+    dilate(img_with_flash_canny, img_with_flash_dilation, kernel);
+    erode(img_with_flash_dilation, img_with_flash_erode, kernel);
+    
+    
+    
+    if (img_without_flash.empty() || img_with_flash.empty()) {
+        cout << "Image(s) not found or empty!" << endl;
+        return 0;
+    }
+    
+    // imshow("Kegel mit Blitz", img_with_flash);
+    // imshow("Kegel ohne Blitz Canny", img_without_flash_canny);
+    // imshow("Kegel mit Blitz Canny", img_with_flash_canny);
+    // imshow("Kegel ohne Blitz Dilation", img_without_flash_dilation);
+    // imshow("Kegel mit Blitz Dilation", img_with_flash_dilation);
+    // imshow("Kegel mit Blitz Erode", img_with_flash_erode);
+    
+    imshow("Kegel mit Blitz HSV", img_with_flash_HSV);
+    
+    while (true) {
+        
+        Scalar lower(hmin, smin, vmin);
+        Scalar upper(hmax, smax, vmax);
+        inRange(img_with_flash_HSV, lower, upper, mask);
+        
+        imshow("Kegel mit Blitz mask", mask);
+        
+        waitKey(1);
+    }
+    
+    // imshow("Kegel ohne Blitz", img_without_flash);
+    // imshow("Kegel mit Blitz", img_with_flash);
+    // imshow("Kegel ohne Blitz Canny", img_without_flash_canny);
+    // imshow("Kegel mit Blitz Canny", img_with_flash_canny);
+    // imshow("Kegel ohne Blitz Dilation", img_without_flash_dilation);
+    // imshow("Kegel mit Blitz Dilation", img_with_flash_dilation);
+    //imshow("Kegel mit Blitz Erode", img_with_flash_erode);
+    
+    // imshow("Kegel mit Blitz HSV", img_with_flash_HSV);
+    // imshow("Kegel mit Blitz mask", mask);
+    
+    
+    // waitKey(0); // infinity
+    
+    return 0;
+}
+*/
+
+string window_title = "HSV Colors";
+const int slider_max = 255;
+int hmin = 0, smin = 0, vmin = 0;
+int hmax = 255, smax = 255, vmax = 255;
+
+Mat src, src_resized, src_crop;
+Mat dst;
+Mat hsv_values;
+
+void on_trackbar( int, void* )
+{
+    cout << "ontrackbar" << endl;
+    Scalar lower(hmin, smin, vmin);
+    Scalar upper(hmax, smax, vmax);
+    inRange(src_crop, lower, upper, dst);
+    
+    rectangle(hsv_values, Point(0, 0), Point(200, 500), Scalar(255, 255, 255), FILLED);
+    putText(hsv_values, "hmin: " + to_string(hmin), Point(5, 25), FONT_HERSHEY_PLAIN, 1, Scalar(0, 0, 255));
+    putText(hsv_values, "hmax: " + to_string(hmax), Point(5, 50), FONT_HERSHEY_PLAIN, 1, Scalar(0, 0,255));
+    putText(hsv_values, "smin: " + to_string(smin), Point(5, 75), FONT_HERSHEY_PLAIN, 1, Scalar(0, 0, 255));
+    putText(hsv_values, "smax: " + to_string(smax), Point(5, 100), FONT_HERSHEY_PLAIN, 1, Scalar(0, 0, 255));
+    putText(hsv_values, "vmin: " + to_string(vmin), Point(5, 125), FONT_HERSHEY_PLAIN, 1, Scalar(0, 0, 255));
+    putText(hsv_values, "vmax: " + to_string(vmax), Point(5, 150), FONT_HERSHEY_PLAIN, 1, Scalar(0, 0, 255));
+   
+    imshow( "window_title", hsv_values );
+    imshow( window_title, dst );
+}
+
+int main( void )
+{
+    src = imread("/Users/lukaskarle/Dev/C++/OpenCV/TestOpenCV/TestOpenCV/assets/kegeln_2_mit_blitz.jpg");
+    if( src.empty() ) { cout << "Error loading src1 \n"; return -1; }
+    
+    // Resize the img
+    resize(src, src_resized, Size(), 0.1, 0.1);
+    
+    // Center the field
+    Rect roi(50, 75, 300, 300);
+    src_crop = src_resized(roi);
+    
+    
+    // Window for displaying HSV values
+    hsv_values = Mat(500, 500, CV_8UC3, Scalar(255, 255, 255));
+    
+    namedWindow(window_title, WINDOW_AUTOSIZE); // Create Window
+    
+    createTrackbar("hmin", window_title, &hmin, slider_max, on_trackbar );
+    createTrackbar("hmax", window_title, &hmax, slider_max, on_trackbar );
+    createTrackbar("smin", window_title, &smin, slider_max, on_trackbar );
+    createTrackbar("smax", window_title, &smax, slider_max, on_trackbar );
+    createTrackbar("vmin", window_title, &vmin, slider_max, on_trackbar );
+    createTrackbar("vmax", window_title, &vmax, slider_max, on_trackbar );
+    
+    on_trackbar( hmin, 0 );
+    on_trackbar( hmax, 0 );
+    on_trackbar( smin, 0 );
+    on_trackbar( smax, 0 );
+    on_trackbar( vmin, 0 );
+    on_trackbar( vmax, 0 );
+   
+    waitKey(0);
     return 0;
 }
