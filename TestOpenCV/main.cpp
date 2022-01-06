@@ -304,6 +304,8 @@ void on_trackbar( int, void* )
     cout << "ontrackbar" << endl;
     Scalar lower(hmin, smin, vmin);
     Scalar upper(hmax, smax, vmax);
+    
+    
     inRange(src_crop, lower, upper, dst);
     
     rectangle(hsv_values, Point(0, 0), Point(200, 500), Scalar(255, 255, 255), FILLED);
@@ -315,24 +317,28 @@ void on_trackbar( int, void* )
     putText(hsv_values, "vmax: " + to_string(vmax), Point(5, 150), FONT_HERSHEY_PLAIN, 1, Scalar(0, 0, 255));
    
     imshow( "window_title", hsv_values );
+    imshow( "original", src_resized);
     imshow( window_title, dst );
 }
 
 int main( void )
 {
-    src = imread("/Users/lukaskarle/Dev/C++/OpenCV/TestOpenCV/TestOpenCV/assets/kegeln_2_mit_blitz.jpg");
+    //src = imread("/Users/lukaskarle/Dev/C++/OpenCV/TestOpenCV/TestOpenCV/assets/kegeln_2_mit_blitz.jpg");
+    src = imread("/Users/lukaskarle/Dev/C++/OpenCV/TestOpenCV/TestOpenCV/assets/kegeln_farben.jpg");
+    
+    
     if( src.empty() ) { cout << "Error loading src1 \n"; return -1; }
     
     // Resize the img
     resize(src, src_resized, Size(), 0.1, 0.1);
     
     // Center the field
-    Rect roi(50, 75, 300, 300);
+    Rect roi(50, 50, 300, 300);
     src_crop = src_resized(roi);
     
     
     // Window for displaying HSV values
-    hsv_values = Mat(500, 500, CV_8UC3, Scalar(255, 255, 255));
+    hsv_values = Mat(200, 200, CV_8UC3, Scalar(255, 255, 255));
     
     namedWindow(window_title, WINDOW_AUTOSIZE); // Create Window
     
