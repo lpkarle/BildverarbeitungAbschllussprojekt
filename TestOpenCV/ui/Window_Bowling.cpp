@@ -17,7 +17,7 @@ WindowBowling::~WindowBowling(void) {}
 
 void WindowBowling::initPins()
 {
-    window = Mat(512, 512, CV_8UC3, Scalar(225, 225, 225));
+    window = Mat(700, 512, CV_8UC3, Scalar(225, 225, 225));
     
     circle(window, Point(257, 65), 21, Scalar(200, 200, 200), FILLED);  // shadow
     circle(window, Point(256, 64), 20, Scalar(255, 255, 255), FILLED);  // kegel

@@ -9,7 +9,7 @@
 
 CameraFeed::CameraFeed(void)
 {
-    cameraCapture = VideoCapture(1);
+    cameraCapture = VideoCapture(0);
     
     if (!cameraCapture.isOpened()) {
         cout << "Unable to connect to webcam"  << endl;
