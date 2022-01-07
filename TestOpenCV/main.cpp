@@ -299,6 +299,8 @@ Mat src, src_resized, src_crop;
 Mat dst;
 Mat hsv_values;
 
+Mat kegel_window;
+
 void on_trackbar( int, void* )
 {
     cout << "ontrackbar" << endl;
@@ -325,8 +327,6 @@ int main( void )
 {
     //src = imread("/Users/lukaskarle/Dev/C++/OpenCV/TestOpenCV/TestOpenCV/assets/kegeln_2_mit_blitz.jpg");
     src = imread("/Users/lukaskarle/Dev/C++/OpenCV/TestOpenCV/TestOpenCV/assets/kegeln_farben.jpg");
-    
-    
     if( src.empty() ) { cout << "Error loading src1 \n"; return -1; }
     
     // Resize the img
@@ -355,6 +355,49 @@ int main( void )
     on_trackbar( smax, 0 );
     on_trackbar( vmin, 0 );
     on_trackbar( vmax, 0 );
+    
+    kegel_window = Mat(512, 512, CV_8UC3, Scalar(225, 225, 225));
+    
+    
+    circle(kegel_window, Point(257, 65), 21, Scalar(200, 200, 200), FILLED);  // shadow
+    circle(kegel_window, Point(256, 64), 20, Scalar(255, 255, 255), FILLED);  // kegel
+    circle(kegel_window, Point(256, 64), 8, Scalar(0, 0, 255), FILLED);       // deckel
+    circle(kegel_window, Point(256, 64), 22, Scalar(200, 200, 200), FILLED);  // knocked down
+    
+    circle(kegel_window, Point(65, 257), 21, Scalar(200, 200, 200), FILLED);
+    circle(kegel_window, Point(64, 256), 20, Scalar(255, 255, 255), FILLED);
+    circle(kegel_window, Point(64, 256), 8, Scalar(0, 0, 255), FILLED);
+    
+    circle(kegel_window, Point(449, 257), 21, Scalar(200, 200, 200), FILLED);
+    circle(kegel_window, Point(448, 256), 20, Scalar(255, 255, 255), FILLED);
+    circle(kegel_window, Point(448, 256), 8, Scalar(0, 0, 255), FILLED);
+    
+    circle(kegel_window, Point(257, 449), 21, Scalar(200,200,200), FILLED);
+    circle(kegel_window, Point(256, 448), 20, Scalar(255, 255, 255), FILLED);
+    circle(kegel_window, Point(256, 448), 8, Scalar(0,0,255), FILLED);
+    
+    circle(kegel_window, Point(257, 257), 21, Scalar(200,200,200), FILLED);
+    circle(kegel_window, Point(256, 256), 20, Scalar(255,255,255), FILLED);
+    circle(kegel_window, Point(256, 256), 8, Scalar(0,0,255), FILLED);
+    
+    circle(kegel_window, Point(161, 161), 21, Scalar(200,200,200), FILLED);
+    circle(kegel_window, Point(160, 160), 20, Scalar(255,255,255), FILLED);
+    circle(kegel_window, Point(160, 160), 8, Scalar(0,0,255), FILLED);
+    
+    circle(kegel_window, Point(161, 353), 21, Scalar(200,200,200), FILLED);
+    circle(kegel_window, Point(160, 352), 20, Scalar(255, 255, 255), FILLED);
+    circle(kegel_window, Point(160, 352), 8, Scalar(0,0,255), FILLED);
+    
+    circle(kegel_window, Point(353, 161), 21, Scalar(200,200,200), FILLED);
+    circle(kegel_window, Point(352, 160), 20, Scalar(255,255,255), FILLED);
+    circle(kegel_window, Point(352, 160), 8, Scalar(0,0,255), FILLED);
+    
+    circle(kegel_window, Point(353, 353), 21, Scalar(200,200,200), FILLED);
+    circle(kegel_window, Point(352, 352), 20, Scalar(255,255,255), FILLED);
+    circle(kegel_window, Point(352, 352), 8, Scalar(0,0,255), FILLED);
+    
+    
+    imshow("Kegel", kegel_window);
    
     waitKey(0);
     return 0;
