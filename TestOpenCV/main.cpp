@@ -10,6 +10,10 @@
 //#include <opencv2/opencv.hpp>
 #include <iostream>
 
+#include "ui/Window_Bowling.hpp"
+#include "ui/CameraFeed.hpp"
+
+
 using namespace cv;
 using namespace std;
 
@@ -140,45 +144,6 @@ int main(int argc, const char * argv[]) {
 }
 */
 
-// ------------------------------------------------- WEBCAM EDGES
-/*
-int main(int argc, const char * argv[]) {
-    
-    VideoCapture videoCapture(0);
-    
-    if (!videoCapture.isOpened()) {
-        cout << "Unable to connect to webcam"  << endl;
-        return -1;
-    }
-    
-    while(true) {
-        
-        Mat frame, frameGrey, frameBlur, frameCanny, frameDilation, frameErode;
-        videoCapture >> frame;
-        if(frame.empty()) break;
-        
-        cvtColor(frame, frameGrey, COLOR_BGR2GRAY);
-        GaussianBlur(frame, frameBlur, Size(5,5), 5, 0);
-        Canny(frameBlur, frameCanny, 50, 150);
-        
-        Mat kernel = getStructuringElement(MORPH_RECT, Size(3, 3));
-        dilate(frameCanny, frameDilation, kernel);
-        erode(frameDilation, frameErode, kernel);
-        
-        imshow("Camera feed", frame);       // normal
-        imshow("Camera grey", frameGrey);   // grey
-        imshow("Camera blur", frameBlur);   // blur
-        imshow("Camera canny", frameCanny); // canny
-        imshow("Image Dilation", frameDilation);
-        imshow("Image Erode", frameErode);
-        
-        if (waitKey(10) == 27) break;
-    }
-    videoCapture.release();
-    return 0;
-}
-*/
-
 // ------------------------------------------------- SHAPES AND TEXT
 /*
 int main(int argc, const char * argv[]) {
@@ -290,6 +255,7 @@ int main(int argc, const char * argv[]) {
 }
 */
 
+/*
 string window_title = "HSV Colors";
 const int slider_max = 255;
 int hmin = 0, smin = 0, vmin = 0;
@@ -400,5 +366,18 @@ int main( void )
     imshow("Kegel", kegel_window);
    
     waitKey(0);
+    return 0;
+}
+*/
+
+// ------------------------------------------------- WEBCAM
+
+int main(int argc, const char * argv[]) {
+    
+    WindowBowling windowBowling;
+    
+    windowBowling.knockDownPin(2);
+    
+    CameraFeed cameraFeed;
     return 0;
 }
