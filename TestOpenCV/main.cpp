@@ -376,8 +376,16 @@ int main(int argc, const char * argv[]) {
     
     WindowBowling windowBowling;
     
-    windowBowling.knockDownPin(2);
+    for (int i = 1; i < 4; i++)
+    {
+        windowBowling.knockDownPin(i);
+    }
     
-    CameraFeed cameraFeed;
+    windowBowling.changeCurrentPlayer(1);
+    windowBowling.changeCurrentPlayer(3);
+
+    
+    waitKey(0);
+    //CameraFeed cameraFeed;
     return 0;
 }

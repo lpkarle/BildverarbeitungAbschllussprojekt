@@ -23,7 +23,7 @@ private:
     
     const int OFFSET_TEXT_X = 25;
     const int OFFSET_TEXT_Y = 20;
-    
+        
     Mat window;
     void initPins();
     void showWindow();
@@ -32,7 +32,10 @@ public:
     WindowBowling(void);
     ~WindowBowling(void);
     
+    void staticElements();
+    void changeCurrentPlayer(int player);
     void knockDownPin(int pinNr);
+    
 };
 
 #endif /* Window_Bowling_hpp */
