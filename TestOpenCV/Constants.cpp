@@ -13,6 +13,14 @@ using namespace cv;
 using namespace std;
 
 // ---------------------------------- Strings
+// Window Welcome
+const string LBL_WELCOME = "Welcome to OpenCV-Bowling";
+const string LBL_PLAYER_AMOUNT = "Player Amount:";
+const string LBL_ROUNDS = "Round Amount:";
+const string BTN_CANCEL = "Cancel";
+const string BTN_PLAY = "Play";
+
+// Window Bowlilng
 const string CURRENT_PLAYER = "Current Player:";
 const string THOWS = "Throw:";
 const string POINTS = "Points:";

@@ -10,6 +10,7 @@
 		97143F432788662F009DCB69 /* Window_Bowling.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97143F412788662F009DCB69 /* Window_Bowling.cpp */; };
 		97143F4627887F39009DCB69 /* CameraFeed.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97143F4427887F39009DCB69 /* CameraFeed.cpp */; };
 		97143F482788D277009DCB69 /* Constants.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97143F472788D276009DCB69 /* Constants.cpp */; };
+		97143F4B27898C57009DCB69 /* WindowWelcome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97143F4927898C57009DCB69 /* WindowWelcome.cpp */; };
 		977B7B142719B5A000689448 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 977B7B132719B5A000689448 /* main.cpp */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,8 @@
 		97143F4427887F39009DCB69 /* CameraFeed.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CameraFeed.cpp; sourceTree = "<group>"; };
 		97143F4527887F39009DCB69 /* CameraFeed.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CameraFeed.hpp; sourceTree = "<group>"; };
 		97143F472788D276009DCB69 /* Constants.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Constants.cpp; sourceTree = "<group>"; };
+		97143F4927898C57009DCB69 /* WindowWelcome.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = WindowWelcome.cpp; sourceTree = "<group>"; };
+		97143F4A27898C57009DCB69 /* WindowWelcome.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WindowWelcome.hpp; sourceTree = "<group>"; };
 		977B7B102719B5A000689448 /* TestOpenCV */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TestOpenCV; sourceTree = BUILT_PRODUCTS_DIR; };
 		977B7B132719B5A000689448 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -63,6 +66,8 @@
 				97143F4527887F39009DCB69 /* CameraFeed.hpp */,
 				97143F412788662F009DCB69 /* Window_Bowling.cpp */,
 				97143F422788662F009DCB69 /* Window_Bowling.hpp */,
+				97143F4927898C57009DCB69 /* WindowWelcome.cpp */,
+				97143F4A27898C57009DCB69 /* WindowWelcome.hpp */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -175,6 +180,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				97143F432788662F009DCB69 /* Window_Bowling.cpp in Sources */,
+				97143F4B27898C57009DCB69 /* WindowWelcome.cpp in Sources */,
 				97143F4627887F39009DCB69 /* CameraFeed.cpp in Sources */,
 				977B7B142719B5A000689448 /* main.cpp in Sources */,
 				97143F482788D277009DCB69 /* Constants.cpp in Sources */,

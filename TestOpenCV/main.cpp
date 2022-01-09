@@ -10,6 +10,7 @@
 //#include <opencv2/opencv.hpp>
 #include <iostream>
 
+#include "ui/WindowWelcome.hpp"
 #include "ui/Window_Bowling.hpp"
 #include "ui/CameraFeed.hpp"
 
@@ -374,17 +375,23 @@ int main( void )
 
 int main(int argc, const char * argv[]) {
     
-    WindowBowling windowBowling;
+    /*WindowBowling windowBowling;
     
-    for (int i = 1; i < 4; i++)
+    for (int i = 1; i < 3; i++)
     {
         windowBowling.knockDownPin(i);
     }
     
     windowBowling.changeCurrentPlayer(1);
     windowBowling.changeCurrentPlayer(3);
-
     
+    windowBowling.changeCurrentThrow(2);
+    windowBowling.changeCurrentPoints(100);
+    string rankNames[] = {"Jack", "Monica", "Max"};
+    windowBowling.changeCurrentRank(rankNames);*/
+    
+    WindowWelcome windowWelcome;
+
     waitKey(0);
     //CameraFeed cameraFeed;
     return 0;

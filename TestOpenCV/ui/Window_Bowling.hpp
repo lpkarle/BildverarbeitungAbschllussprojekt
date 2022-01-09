@@ -26,14 +26,17 @@ private:
         
     Mat window;
     void initPins();
-    void showWindow();
+    void updateWindow();
     
 public:
     WindowBowling(void);
     ~WindowBowling(void);
     
     void staticElements();
-    void changeCurrentPlayer(int player);
+    void changeCurrentPlayer(int currPlayer);
+    void changeCurrentThrow(int currThrow);
+    void changeCurrentPoints(int currPoints);
+    void changeCurrentRank(string rankNames[]);
     void knockDownPin(int pinNr);
     
 };

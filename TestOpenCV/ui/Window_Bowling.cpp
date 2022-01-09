@@ -8,19 +8,18 @@
 #include "Window_Bowling.hpp"
 #include "../Constants.cpp"
 
+
 WindowBowling::WindowBowling(void)
 {
-    initPins();
     staticElements();
-    showWindow();
+    initPins();
+    updateWindow();
 }
 
 WindowBowling::~WindowBowling(void) {}
 
 void WindowBowling::initPins()
 {
-    window = Mat(700, 512, CV_8UC3, WHITE);
-    
     circle(window, Point(257, 105), 21, Scalar(200, 200, 200), FILLED);  // shadow
     circle(window, Point(256, 104), 20, Scalar(255, 255, 255), FILLED);  // kegel
     circle(window, Point(256, 104), 8, Scalar(0, 0, 255), FILLED);       // deckel
@@ -106,22 +105,47 @@ void WindowBowling::knockDownPin(int pinNr)
             break;
     }
     
-    showWindow();
+    updateWindow();
 }
 
-void WindowBowling::changeCurrentPlayer(int player)
+void WindowBowling::changeCurrentPlayer(int currPlayer)
 {
     
-    if (player <= 0) return;
+    if (currPlayer <= 0) return;
     
     rectangle(window, Point(250, 0), Point(305, 50), BLUE, FILLED);
-    putText(window, to_string(player), Point(260, 38), FONT_HERSHEY_COMPLEX, 1.2, WHITE);
+    putText(window, to_string(currPlayer), Point(260, 38), FONT_HERSHEY_COMPLEX, 1.2, WHITE);
     
-    showWindow();
+    updateWindow();
+}
+
+void WindowBowling::changeCurrentThrow(int currThrow)
+{
+    rectangle(window, Point(100, 550), Point(200, 590), WHITE, FILLED);
+    putText(window, to_string(currThrow), Point(100, 580), FONT_HERSHEY_COMPLEX, 0.8, GREY_DARK);
+    updateWindow();
+}
+
+void WindowBowling::changeCurrentPoints(int currPoints)
+{
+    rectangle(window, Point(100, 600), Point(200, 640), WHITE, FILLED);
+    putText(window, to_string(currPoints), Point(100, 630), FONT_HERSHEY_COMPLEX, 0.8, GREY_DARK);
+    updateWindow();
+}
+
+void WindowBowling::changeCurrentRank(string rankNames[])
+{
+    rectangle(window, Point(295, 550), Point(500, 690), WHITE, FILLED);
+    putText(window, rankNames[0], Point(300, 580), FONT_HERSHEY_COMPLEX, 0.8, GREY_DARK);
+    putText(window, rankNames[1], Point(300, 630), FONT_HERSHEY_COMPLEX, 0.8, GREY_DARK);
+    putText(window, rankNames[2], Point(300, 680), FONT_HERSHEY_COMPLEX, 0.8, GREY_DARK);
+    updateWindow();
 }
 
 void WindowBowling::staticElements()
 {
+    window = Mat(700, 512, CV_8UC3, WHITE);
+    
     rectangle(window, Point(0, 0), Point(512, 50), BLUE, FILLED);
     putText(window, CURRENT_PLAYER, Point(10, 35), FONT_HERSHEY_DUPLEX, 1, WHITE);
     
@@ -137,7 +161,7 @@ void WindowBowling::staticElements()
     
 }
 
-void WindowBowling::showWindow()
+void WindowBowling::updateWindow()
 {
     imshow("Bowling Pins", window);
 }
