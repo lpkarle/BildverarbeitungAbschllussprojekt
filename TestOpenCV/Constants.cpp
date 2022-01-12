@@ -12,11 +12,18 @@
 using namespace cv;
 using namespace std;
 
+// ---------------------------------- Game
+const int MAX_NR_OF_PLAYERS = 3;
+const int MIN_NR_OF_PLAYERS = 1;
+const int MAX_NR_OF_ROUNDS = 2;
+const int MIN_NR_OF_ROUNDS = 1;
+
+
 // ---------------------------------- Strings
 // Window Welcome
 const string LBL_WELCOME = "Welcome to OpenCV-Bowling";
-const string LBL_PLAYER_AMOUNT = "Player Amount:";
-const string LBL_ROUNDS = "Round Amount:";
+const string LBL_PLAYERS = "Nr of Players:";
+const string LBL_ROUNDS = "Nr of Rounds:";
 const string BTN_CANCEL = "Cancel";
 const string BTN_PLAY = "Play";
 

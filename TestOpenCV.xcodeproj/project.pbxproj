@@ -91,8 +91,8 @@
 		977B7B122719B5A000689448 /* TestOpenCV */ = {
 			isa = PBXGroup;
 			children = (
-				97143F40278865DF009DCB69 /* ui */,
 				97143F3A2785ABAE009DCB69 /* assets */,
+				97143F40278865DF009DCB69 /* ui */,
 				977B7B132719B5A000689448 /* main.cpp */,
 				97143F3E2785C50F009DCB69 /* Info.plist */,
 				97143F472788D276009DCB69 /* Constants.cpp */,
