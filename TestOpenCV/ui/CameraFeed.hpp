@@ -13,6 +13,7 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
 #include <iostream>
+#include "Window_Bowling.hpp"
 
 using namespace cv;
 using namespace std;
@@ -22,13 +23,17 @@ class CameraFeed
 private:
     VideoCapture cameraCapture;
     
+    int key_pressed;
+    
     int hmin, smin, vmin, hmax, smax, vmax;
-    void detectBottles(Mat hsvImage);
+    int detectBottles(Mat hsvImage);
     void detectDots(Mat hsvImage);
     
+    vector<vector<Point>> getContoures(Mat imgSrc, Mat imgDest);
+    
 public:
-    CameraFeed(void);
-    ~CameraFeed(void);
+    CameraFeed(WindowBowling windowBowling);
+    ~CameraFeed();
 };
 
 

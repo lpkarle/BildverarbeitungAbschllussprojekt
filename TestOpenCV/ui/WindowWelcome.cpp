@@ -8,9 +8,11 @@
 #include "WindowWelcome.hpp"
 #include "../Constants.cpp"
 
-
 WindowWelcome::WindowWelcome(void(*func)())
 {
+    nrOfPlayers = MIN_NR_OF_PLAYERS;
+    nrOfRounds = MIN_NR_OF_ROUNDS;
+    
     callbackCancel = func;
     placeStaticElements();
     updateWindow();

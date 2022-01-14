@@ -9,14 +9,14 @@
 #include "../Constants.cpp"
 
 
-WindowBowling::WindowBowling(void)
+WindowBowling::WindowBowling(int amountPlayers, int amountRounds)
 {
-    staticElements();
+    staticElements(amountPlayers, amountRounds);
     initPins();
     updateWindow();
 }
 
-WindowBowling::~WindowBowling(void) {}
+WindowBowling::~WindowBowling() {}
 
 void WindowBowling::initPins()
 {
@@ -142,7 +142,7 @@ void WindowBowling::changeCurrentRank(string rankNames[])
     updateWindow();
 }
 
-void WindowBowling::staticElements()
+void WindowBowling::staticElements(int amountPlayers, int amountRounds)
 {
     window = Mat(700, 512, CV_8UC3, WHITE);
     
@@ -156,8 +156,9 @@ void WindowBowling::staticElements()
     putText(window, POINTS, Point(10, 630), FONT_HERSHEY_DUPLEX, 0.8, GREY_DARK);
     
     putText(window, "1.", Point(266, 580), FONT_HERSHEY_DUPLEX, 0.8, GREY_DARK);
-    putText(window, "2.", Point(266, 630), FONT_HERSHEY_DUPLEX, 0.8, GREY_DARK);
-    putText(window, "3.", Point(266, 680), FONT_HERSHEY_DUPLEX, 0.8, GREY_DARK);
+    
+    if (amountPlayers >= 2) putText(window, "2.", Point(266, 630), FONT_HERSHEY_DUPLEX, 0.8, GREY_DARK);
+    if (amountPlayers == 3) putText(window, "3.", Point(266, 680), FONT_HERSHEY_DUPLEX, 0.8, GREY_DARK);
     
 }
 

@@ -29,10 +29,10 @@ private:
     void updateWindow();
     
 public:
-    WindowBowling(void);
-    ~WindowBowling(void);
+    WindowBowling(int amountPlayers, int amountRounds);
+    ~WindowBowling();
     
-    void staticElements();
+    void staticElements(int amountPlayers, int amountRounds);
     void changeCurrentPlayer(int currPlayer);
     void changeCurrentThrow(int currThrow);
     void changeCurrentPoints(int currPoints);

@@ -7,13 +7,13 @@
 
 #include "CameraFeed.hpp"
 
-CameraFeed::CameraFeed(void)
+CameraFeed::CameraFeed(WindowBowling windowBowling)
 {
     while (!cameraCapture.isOpened())
     {
         cameraCapture = VideoCapture(1);
     }
-    
+        
     while(true) {
         
         Mat frame, frameResize, frameCrop, frameHSV;
@@ -33,11 +33,16 @@ CameraFeed::CameraFeed(void)
         
         
         
-        detectBottles(frameHSV);
+        int bottles_up = detectBottles(frameHSV);
+        
+        cout << "-------------- bottles ----> " << bottles_up << endl;
+    
+        
         detectDots(frameHSV);
         
         
-        imshow("Camera HSV", frameHSV);
+        imshow("Camera", frameCrop);
+        
         
         
         
@@ -54,19 +59,19 @@ CameraFeed::CameraFeed(void)
         erode(frameDilation, frameErode, kernel);
         */
         
-        
         if (waitKey(10) == 27) break;
+    
     }
 }
 
 
-CameraFeed::~CameraFeed(void)
+CameraFeed::~CameraFeed()
 {
     cameraCapture.release();
 }
 
 
-void CameraFeed::detectBottles(Mat hsvImage)
+int CameraFeed::detectBottles(Mat hsvImage)
 {
     Mat img_dst, img_blur, img_canny, img_dilation, img_erode;
     
@@ -88,9 +93,11 @@ void CameraFeed::detectBottles(Mat hsvImage)
     dilate(img_canny, img_dilation, kernel);
     erode(img_dilation, img_erode, kernel);
     
-    imshow("Camera Canny Bottles", img_canny);
-    imshow("Camera dst Bottles", img_dst);
-    imshow("Camera erode Bottles", img_erode);
+    //imshow("Camera Canny Bottles", img_canny);
+    imshow("Camera dilation", img_dilation);
+    //imshow("Camera erode Bottles", img_erode);
+    
+    return (int) getContoures(img_dilation, hsvImage).size();
 }
 
 
@@ -116,7 +123,60 @@ void CameraFeed::detectDots(Mat hsvImage)
     dilate(img_canny, img_dilation, kernel);
     erode(img_dilation, img_erode, kernel);
     
-    imshow("Camera Canny Dots", img_canny);
-    imshow("Camera dst Dots", img_dst);
-    imshow("Camera erode Dots", img_erode);
+    //imshow("Camera Canny Dots", img_canny);
+    //imshow("Camera dst Dots", img_dst);
+    ///imshow("Camera erode Dots", img_erode);
+}
+
+vector<vector<Point>> CameraFeed::getContoures(Mat imgSrc, Mat imgDest)
+{
+    vector<vector<Point>> contours;
+    vector<Vec4i> hierarchy;
+
+    findContours(imgSrc, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
+    //drawContours(imgDest, contours, -1, Scalar(255, 255, 255), 2);
+    
+    
+    
+    // filter area
+    for (int i = 0; i < contours.size(); i++)
+    {
+        int area = contourArea(contours[i]);
+        cout << area << endl;
+        
+        vector<vector<Point>> conPoly(contours.size());
+        vector<Rect> boundRect(contours.size());
+        
+        string objType;
+        
+        if (area >= 610 && area <= 675)
+        {
+            float parameter = arcLength(contours[i], true);
+            
+            approxPolyDP(contours[i], conPoly[i], 0.02 * parameter, true);
+            drawContours(imgDest, conPoly, i, Scalar(0, 0, 0), 2);
+            
+            cout << conPoly.size() << endl;
+            
+            boundRect[i] = boundingRect(conPoly[i]);
+            rectangle(imgDest, boundRect[i].tl(), boundRect[i].br(), Scalar(0, 255, 0), 2);
+            
+            int objCornerPoints = (int) conPoly[i].size();
+            
+            switch (objCornerPoints)
+            {
+                case 3:
+                    objType = "Triangle";
+                case 4:
+                    objType = "Rectangle";
+                default:
+                    objType = "Circle";
+            }
+            
+            putText(imgDest, objType, {boundRect[i].x, boundRect[i].y - 5}, FONT_HERSHEY_DUPLEX, 0.75, Scalar(0,0,0));
+        }
+    }
+    imshow("Camera HSV", imgDest);
+    
+    return contours;
 }

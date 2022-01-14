@@ -88,12 +88,11 @@ int main( void )
 
 // ------------------------------------------------- WEBCAM
 
-/*
 int key_pressed;
 bool runtime = true;
 
-int amountPlayers = 0;
-int amountRounds = 0;
+int amountPlayers = 2;
+int amountRounds = 2;
 
 void updateWindow(Mat currentWindow)
 {
@@ -118,19 +117,8 @@ void playCallback()
 
 
 
-int main(int argc, const char * argv[]) {
-    
-    
-    CameraFeed cameraFeed;
-    
-    
-    
-    cout << "Worked !" << endl;
-    
-    
-    //CameraFeed cameraFeed;
-    
-  
+int main(int argc, const char * argv[])
+{
     // ---- Player and Rounds
     
     /*WindowWelcome windowWelcome(cancelCallback);
@@ -155,50 +143,30 @@ int main(int argc, const char * argv[]) {
             
             cout << "players: " << amountPlayers << "; rounds: " << amountRounds << endl;
             break;
-    }
+    }*/
     
     
     // ---- Game
     
-    //WindowBowling windowBowling;
+    WindowBowling windowBowling(amountPlayers, amountRounds);
+    
+    CameraFeed cameraFeed(windowBowling);
     
     
-    key_pressed = waitKey(0);
     
-    switch(key_pressed)
-        
-    {
-            
-        case 27: // esc
-            cout << "ESC" << endl;
-            destroyWindow("window_welcome");
-            break;
-                
-        case 13: // Enter
-            cout << "Enter" << endl;
-            
-            amountPlayers = windowWelcome.getNrOfPlayers();
-            amountRounds = windowWelcome.getNrOfRounds();
-            
-            destroyWindow("window_welcome");
-            
-            cout << "players: " << amountPlayers << "; rounds: " << amountRounds << endl;
-            break;
-    }
     
     return 0;
 }
 
-*/
 
-
+/*
 void get_contours(Mat img_dilation, Mat img_destination)
 {
     vector<vector<Point>> contours;
     vector<Vec4i> hierarchy;
 
     findContours(img_dilation, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
-    drawContours(img_destination, contours, -1, Scalar(0, 0, 0), 3);
+    drawContours(img_destination, contours, -1, Scalar(50, 50, 255), 3);
     
     // filter area
     for (int i = 0; i < contours.size(); i++)
@@ -211,7 +179,7 @@ void get_contours(Mat img_dilation, Mat img_destination)
         
         string objType;
         
-        if (area > 11000)
+        if (area > 650)
         {
             float parameter = arcLength(contours[i], true);
             
@@ -243,15 +211,38 @@ void get_contours(Mat img_dilation, Mat img_destination)
     }
 }
 
+int hmin = 0, smin = 0, vmin = 0;
+int hmax = 255, smax = 255, vmax = 255;
+
 int main( void )
 {
     Mat src_dots_hsv = imread("/Users/lukaskarle/Dev/C++/OpenCV/TestOpenCV/TestOpenCV/assets/bowling_dots.png");
     Mat src_bottles_hsv = imread("/Users/lukaskarle/Dev/C++/OpenCV/TestOpenCV/TestOpenCV/assets/bowling_22_01_12.png");
     //imshow("src_dots_hsv", src_dots_hsv);
-    //imshow("src_bottles_hsv", src_bottles_hsv);
-        
-    Mat src_shapes = imread("/Users/lukaskarle/Dev/C++/OpenCV/TestOpenCV/TestOpenCV/assets/shapes.png");
-    imshow("shapes", src_shapes);
+    imshow("src_bottles_hsv", src_bottles_hsv);
+    
+    Mat img_dst, img_canny;
+    
+    // Yellow
+    hmin = 12; smin = 46; vmin = 248;
+    hmax = 49; smax = 198; vmax = 255;
+    
+    Scalar lower(hmin, smin, vmin);
+    Scalar upper(hmax, smax, vmax);
+    inRange(src_bottles_hsv, lower, upper, img_dst);
+    
+    imshow("dest", img_dst);
+    
+    Canny(img_dst, img_canny, 25, 75);
+    
+    imshow("canny", img_canny);
+    
+    get_contours(img_canny, src_bottles_hsv);
+    
+    imshow("done", src_bottles_hsv);
+
+    
+    /*
     
     Mat img_grey, img_blur, img_canny, img_dilation, img_erode;
     
@@ -278,3 +269,4 @@ int main( void )
     waitKey(0);
     return 0;
 }
+*/

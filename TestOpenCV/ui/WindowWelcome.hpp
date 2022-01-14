@@ -30,8 +30,8 @@ class WindowWelcome
 private:
     string windowName = "window_welcome";
     Mat window;
-    int nrOfPlayers = 2;
-    int nrOfRounds  = 1;
+    int nrOfPlayers;
+    int nrOfRounds;
     bool cancelClicked = false;
     bool playClicked = false;
     
@@ -49,7 +49,6 @@ public:
     WindowWelcome(void(*func)());
     ~WindowWelcome(void);
     
-    //void mouseCallback(int event, int x, int y, int flags, void* userdata);
     void changePlayerAmount();
     void changeThrowRounds();
     Mat getWindow() { return window; };
