@@ -22,6 +22,10 @@ class CameraFeed
 private:
     VideoCapture cameraCapture;
     
+    int hmin, smin, vmin, hmax, smax, vmax;
+    void detectBottles(Mat hsvImage);
+    void detectDots(Mat hsvImage);
+    
 public:
     CameraFeed(void);
     ~CameraFeed(void);

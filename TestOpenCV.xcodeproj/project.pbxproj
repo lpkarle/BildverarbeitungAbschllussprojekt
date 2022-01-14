@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9712D4D0278EE89F0098AA5C /* GameManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9712D4CE278EE89F0098AA5C /* GameManager.cpp */; };
 		97143F432788662F009DCB69 /* Window_Bowling.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97143F412788662F009DCB69 /* Window_Bowling.cpp */; };
 		97143F4627887F39009DCB69 /* CameraFeed.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97143F4427887F39009DCB69 /* CameraFeed.cpp */; };
 		97143F482788D277009DCB69 /* Constants.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97143F472788D276009DCB69 /* Constants.cpp */; };
@@ -27,6 +28,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9712D4CE278EE89F0098AA5C /* GameManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GameManager.cpp; sourceTree = "<group>"; };
+		9712D4CF278EE89F0098AA5C /* GameManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GameManager.hpp; sourceTree = "<group>"; };
 		97143F3B2785ABD7009DCB69 /* rabbit.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = rabbit.jpeg; sourceTree = "<group>"; };
 		97143F3E2785C50F009DCB69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		97143F412788662F009DCB69 /* Window_Bowling.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Window_Bowling.cpp; sourceTree = "<group>"; };
@@ -51,6 +54,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9712D4CD278EE8630098AA5C /* logic */ = {
+			isa = PBXGroup;
+			children = (
+				9712D4CE278EE89F0098AA5C /* GameManager.cpp */,
+				9712D4CF278EE89F0098AA5C /* GameManager.hpp */,
+			);
+			path = logic;
+			sourceTree = "<group>";
+		};
 		97143F3A2785ABAE009DCB69 /* assets */ = {
 			isa = PBXGroup;
 			children = (
@@ -91,6 +103,7 @@
 		977B7B122719B5A000689448 /* TestOpenCV */ = {
 			isa = PBXGroup;
 			children = (
+				9712D4CD278EE8630098AA5C /* logic */,
 				97143F3A2785ABAE009DCB69 /* assets */,
 				97143F40278865DF009DCB69 /* ui */,
 				977B7B132719B5A000689448 /* main.cpp */,
@@ -180,6 +193,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				97143F432788662F009DCB69 /* Window_Bowling.cpp in Sources */,
+				9712D4D0278EE89F0098AA5C /* GameManager.cpp in Sources */,
 				97143F4B27898C57009DCB69 /* WindowWelcome.cpp in Sources */,
 				97143F4627887F39009DCB69 /* CameraFeed.cpp in Sources */,
 				977B7B142719B5A000689448 /* main.cpp in Sources */,

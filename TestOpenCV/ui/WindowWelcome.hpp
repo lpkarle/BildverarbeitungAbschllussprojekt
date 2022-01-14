@@ -35,19 +35,24 @@ private:
     bool cancelClicked = false;
     bool playClicked = false;
     
+    void(*callbackCancel)();
+    
     int onMouse(int event, int x, int y);
     static void onMouse(int event, int x, int y, int, void* userdata);
         
     void placeStaticElements();
-    void updateWindow();
+    
     
 public:
-    WindowWelcome(void);
+    void updateWindow();
+    // WindowWelcome(void);
+    WindowWelcome(void(*func)());
     ~WindowWelcome(void);
     
     //void mouseCallback(int event, int x, int y, int flags, void* userdata);
     void changePlayerAmount();
     void changeThrowRounds();
+    Mat getWindow() { return window; };
     int getNrOfPlayers() { return nrOfPlayers; };
     int getNrOfRounds() { return nrOfRounds; };
     bool getCancelClicked() { return cancelClicked; };

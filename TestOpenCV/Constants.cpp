@@ -21,6 +21,7 @@ const int MIN_NR_OF_ROUNDS = 1;
 
 // ---------------------------------- Strings
 // Window Welcome
+const string WINDOW_NAME = "OpenCV Bowling";
 const string LBL_WELCOME = "Welcome to OpenCV-Bowling";
 const string LBL_PLAYERS = "Nr of Players:";
 const string LBL_ROUNDS = "Nr of Rounds:";
