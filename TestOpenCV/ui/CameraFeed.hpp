@@ -22,6 +22,7 @@ class CameraFeed
 {
 private:
     VideoCapture cameraCapture;
+    Mat frameCrop;
     
     int key_pressed;
     
@@ -29,7 +30,12 @@ private:
     int detectBottles(Mat hsvImage);
     void detectDots(Mat hsvImage);
     
-    vector<vector<Point>> getContoures(Mat imgSrc, Mat imgDest);
+    vector<vector<Point>> getContours(Mat imgSrc);
+    vector<vector<Point>> getBottleContours(vector<vector<Point>> contours, Mat imgDest);
+    
+    
+    // test
+    void bottleLocation();
     
 public:
     CameraFeed(WindowBowling windowBowling);
