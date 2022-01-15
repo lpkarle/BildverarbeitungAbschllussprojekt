@@ -13,6 +13,8 @@ CameraFeed::CameraFeed(WindowBowling windowBowling)
     {
         cameraCapture = VideoCapture(1);
     }
+    
+    button_grp = Mat(100, 500, CV_8UC3, Scalar(255, 255, 255));
         
     while(true) {
         
@@ -32,8 +34,7 @@ CameraFeed::CameraFeed(WindowBowling windowBowling)
         
         cvtColor(frameCrop, frameHSV, COLOR_BGR2HSV);
         
-        
-        
+        //cout << "Size:    " << frameCrop.size << endl;
         int bottles_up = detectBottles(frameHSV);
         
         cout << "-------------- bottles ----> " << bottles_up << endl;
@@ -41,9 +42,9 @@ CameraFeed::CameraFeed(WindowBowling windowBowling)
         
         detectDots(frameHSV);
         
-        
-        imshow("Camera", frameCrop);
-        
+        Mat bc;
+        vconcat(frameCrop, button_grp, bc);
+        imshow("Camera", bc);
         
         if (waitKey(10) == 27) break;
     
@@ -127,38 +128,68 @@ vector<vector<Point>> CameraFeed::getContours(Mat imgSrc)
 
 vector<vector<Point>> CameraFeed::getBottleContours(vector<vector<Point>> contours, Mat imgDest)
 {
-    int count = 0;
-    vector<vector<Point>> contourCircle(contours.size());
-    vector<Rect> boundRect(contours.size());
+    vector<vector<Point>> contourCircle;
     
     // filter area
     for (int i = 0; i < contours.size(); i++)
     {
         int area = contourArea(contours[i]);
         cout << area << endl;
-        
-        string objType;
-        
-        if (area >= 580 && area <= 660)
+                
+        if (area >= 580 && area <= 750)
         {
+            vector<Point> currentContour;
             float parameter = arcLength(contours[i], true);
-            
-            approxPolyDP(contours[i], contourCircle[i], 0.02 * parameter, true);
-            int objCornerPoints = (int) contourCircle[i].size();
+            approxPolyDP(contours[i], currentContour, 0.02 * parameter, true);
+            int objCornerPoints = (int) currentContour.size();
             
             if (objCornerPoints > 4)
             {
-                count++;
-                drawContours(imgDest, contourCircle, i, Scalar(0, 0, 0), 2);
-                boundRect[i] = boundingRect(contourCircle[i]);
-                rectangle(imgDest, boundRect[i].tl(), boundRect[i].br(), Scalar(0, 255, 0), 2);
-                putText(imgDest, "Circle", {boundRect[i].x, boundRect[i].y - 5}, FONT_HERSHEY_DUPLEX, 0.75, Scalar(0,0,0));
+                contourCircle.insert(contourCircle.end(), currentContour);
             }
         }
     }
+    
+    for (auto circ : contourCircle)
+    {
+        drawContours(imgDest, contourCircle, -1, Scalar(0, 0, 0), 2);
+        auto boundRect = boundingRect(circ);
+        rectangle(imgDest, boundRect.tl(), boundRect.br(), Scalar(0, 255, 0), 2);
+        putText(imgDest, "Circle", {boundRect.x, boundRect.y - 5}, FONT_HERSHEY_DUPLEX, 0.75, Scalar(0,0,0));
+    }
+    
     imshow("Camera HSV", imgDest);
     
     return contourCircle;
+}
+
+
+void CameraFeed::onMouse(int event, int x, int y, int, void* userdata)
+{
+    CameraFeed* cameraFeed = reinterpret_cast<CameraFeed*>(userdata);
+    cameraFeed->onMouse(event, x, y);
+}
+
+int CameraFeed::onMouse(int event, int x, int y)
+{
+    if  ( event == EVENT_LBUTTONDOWN )
+    {
+        // check the button positions
+        if (x >= locationBtnNextRound[0].x && x <= locationBtnNextRound[1].x &&
+            y >= locationBtnNextRound[0].y && y <= locationBtnNextRound[1].y)
+        {
+            cout << "BUTTON MINUS PLAYER" << endl;
+    
+        }
+        else if (x >= locationBtnNextRound[0].x && x <= locationBtnNextRound[1].x &&
+                 y >= locationBtnNextRound[0].y && y <= locationBtnNextRound[1].y)
+        {
+            cout << "BUTTON PLUS PLAYER" << endl;
+            
+        }
+    }
+    return 1;
+
 }
 
 

@@ -18,11 +18,16 @@
 using namespace cv;
 using namespace std;
 
+
+const Point locationBtnNextPlayer[ 2 ] = { Point(290, 80), Point(330, 105) };
+const Point locationBtnNextRound[ 2 ]  = { Point(385, 80), Point(425, 105) };
+
 class CameraFeed
 {
 private:
     VideoCapture cameraCapture;
     Mat frameCrop;
+    Mat button_grp;
     
     int key_pressed;
     
@@ -32,6 +37,9 @@ private:
     
     vector<vector<Point>> getContours(Mat imgSrc);
     vector<vector<Point>> getBottleContours(vector<vector<Point>> contours, Mat imgDest);
+    
+    int onMouse(int event, int x, int y);
+    static void onMouse(int event, int x, int y, int, void* userdata);
     
     
     // test
