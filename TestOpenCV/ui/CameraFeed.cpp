@@ -15,12 +15,18 @@ CameraFeed::CameraFeed(WindowBowling windowBowling)
     }
     
     button_grp = Mat(100, 500, CV_8UC3, Scalar(255, 255, 255));
+    
+    int framesAmountToCompare = 24;
+    int frameCounter = 1;
+    int meanBottleCount = 0;
+    
+    Mat frame, frameResize, frameHSV;
+    
+    Mat frameBlur, frameCanny, frameDilation, frameErode, dst;
         
     while(true) {
         
-        Mat frame, frameResize, frameHSV;
         
-        Mat frameBlur, frameCanny, frameDilation, frameErode, dst;
         
         cameraCapture >> frame;
         if(frame.empty()) break;
@@ -34,17 +40,26 @@ CameraFeed::CameraFeed(WindowBowling windowBowling)
         
         cvtColor(frameCrop, frameHSV, COLOR_BGR2HSV);
         
-        //cout << "Size:    " << frameCrop.size << endl;
-        int bottles_up = detectBottles(frameHSV);
         
-        cout << "-------------- bottles ----> " << bottles_up << endl;
+
+        meanBottleCount += detectBottles(frameHSV);
+        frameCounter++;
+        
+        if (frameCounter == framesAmountToCompare)
+        {         
+            meanBottleCount = round(meanBottleCount / (framesAmountToCompare -1));
+            cout << "-------------- bottles ----> " << meanBottleCount << endl;
+            
+            frameCounter = 1;
+            meanBottleCount = 0;
+        }
+        
+        
     
         
-        detectDots(frameHSV);
-        
-        Mat bc;
-        vconcat(frameCrop, button_grp, bc);
-        imshow("Camera", bc);
+        //Mat bc;
+        //vconcat(frameCrop, button_grp, bc);
+        //imshow("Camera", bc);
         
         if (waitKey(10) == 27) break;
     
@@ -58,9 +73,9 @@ CameraFeed::~CameraFeed()
 }
 
 
-int CameraFeed::detectBottles(Mat hsvImage)
+int CameraFeed::detectBottles(Mat img)
 {
-    Mat img_dst, img_blur, img_canny, img_dilation, img_erode;
+    Mat img_dst, img_grey, img_blur, img_canny, img_dilation, img_erode;
     
     // Yellow
     hmin = 12; smin = 46; vmin = 248;
@@ -68,23 +83,21 @@ int CameraFeed::detectBottles(Mat hsvImage)
     
     Scalar lower(hmin, smin, vmin);
     Scalar upper(hmax, smax, vmax);
-    inRange(hsvImage, lower, upper, img_dst);
+    inRange(img, lower, upper, img_dst);
     
-    GaussianBlur(img_dst, img_blur, Size(3,3), 3, 0);
+    //cvtColor(img, img_grey, COLOR_BGR2GRAY);
+    GaussianBlur(img_dst, img_blur, Size(3, 3), 3, 0);
+    Canny(img_blur, img_canny, 25, 75);
     
-    // mostly before using cenny a little bit of blur is used
-    Canny(img_blur, img_canny, 50, 150);
-    
-    // for edge detection "erweitern"
     Mat kernel = getStructuringElement(MORPH_RECT, Size(3, 3));
     dilate(img_canny, img_dilation, kernel);
     erode(img_dilation, img_erode, kernel);
     
-    //imshow("Camera Canny Bottles", img_canny);
+    imshow("Camera Canny Bottles", img_canny);
     imshow("Camera dilation", img_dilation);
-    //imshow("Camera erode Bottles", img_erode);
+    imshow("Camera erode Bottles", img_erode);
     
-    return (int) getBottleContours(getContours(img_dilation), hsvImage).size();
+    return (int) getBottleContours(getContours(img_dilation), img).size();
 }
 
 
@@ -134,7 +147,7 @@ vector<vector<Point>> CameraFeed::getBottleContours(vector<vector<Point>> contou
     for (int i = 0; i < contours.size(); i++)
     {
         int area = contourArea(contours[i]);
-        cout << area << endl;
+        //cout << area << endl;
                 
         if (area >= 580 && area <= 750)
         {
