@@ -13,6 +13,7 @@
 #include "../ui/WindowWelcome.hpp"
 #include "../ui/WindowBowling.hpp"
 #include "../ui/CameraFeed.hpp"
+#include "../ui/WindowAlert.hpp"
 
 using namespace std;
 
@@ -35,6 +36,7 @@ private:
     
     void initializeGame();
     void playGame();
+    void exitGame();
     void endGame();
     
 public:

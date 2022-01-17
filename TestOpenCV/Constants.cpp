@@ -25,11 +25,13 @@ const int ROUNDS_TO_PLAY = 1;
 const string WINDOW_WELCOME = "Window Welcome";
 const string WINDOW_BOWLING = "Window Bowling";
 const string WINDOW_CAMERA = "Window Camera";
+const string WINDOW_ALERT = "Window Alert";
 const string LBL_WELCOME = "Welcome to OpenCV-Bowling";
 const string LBL_PLAYERS = "Nr of Players:";
 const string LBL_ROUNDS = "Nr of Rounds:";
 const string BTN_CANCEL = "Cancel";
 const string BTN_PLAY = "Play";
+const string ALERT_EXIT = "Do you realy want to exit the game?";
 
 // Window Bowlilng
 const string CURRENT_PLAYER = "Current Player:";

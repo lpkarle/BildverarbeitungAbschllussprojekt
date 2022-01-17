@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		97001AEA2795DE0400AFE64A /* WindowAlert.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97001AE82795DE0400AFE64A /* WindowAlert.cpp */; };
 		9712D4D0278EE89F0098AA5C /* GameManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9712D4CE278EE89F0098AA5C /* GameManager.cpp */; };
 		97143F432788662F009DCB69 /* WindowBowling.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97143F412788662F009DCB69 /* WindowBowling.cpp */; };
 		97143F4627887F39009DCB69 /* CameraFeed.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97143F4427887F39009DCB69 /* CameraFeed.cpp */; };
@@ -28,6 +29,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		97001AE82795DE0400AFE64A /* WindowAlert.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = WindowAlert.cpp; sourceTree = "<group>"; };
+		97001AE92795DE0400AFE64A /* WindowAlert.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WindowAlert.hpp; sourceTree = "<group>"; };
 		9712D4CE278EE89F0098AA5C /* GameManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GameManager.cpp; sourceTree = "<group>"; };
 		9712D4CF278EE89F0098AA5C /* GameManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GameManager.hpp; sourceTree = "<group>"; };
 		97143F3B2785ABD7009DCB69 /* rabbit.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = rabbit.jpeg; sourceTree = "<group>"; };
@@ -80,6 +83,8 @@
 				97143F422788662F009DCB69 /* WindowBowling.hpp */,
 				97143F4927898C57009DCB69 /* WindowWelcome.cpp */,
 				97143F4A27898C57009DCB69 /* WindowWelcome.hpp */,
+				97001AE82795DE0400AFE64A /* WindowAlert.cpp */,
+				97001AE92795DE0400AFE64A /* WindowAlert.hpp */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -194,6 +199,7 @@
 			files = (
 				97143F432788662F009DCB69 /* WindowBowling.cpp in Sources */,
 				9712D4D0278EE89F0098AA5C /* GameManager.cpp in Sources */,
+				97001AEA2795DE0400AFE64A /* WindowAlert.cpp in Sources */,
 				97143F4B27898C57009DCB69 /* WindowWelcome.cpp in Sources */,
 				97143F4627887F39009DCB69 /* CameraFeed.cpp in Sources */,
 				977B7B142719B5A000689448 /* main.cpp in Sources */,

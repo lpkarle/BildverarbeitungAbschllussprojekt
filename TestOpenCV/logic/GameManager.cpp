@@ -29,15 +29,14 @@ void GameManager::initializeGame()
     
     while (phaseInitialize)
     {
-        int keyPressed = waitKey(10);
+        int keyPressed = waitKey(0);
         switch (keyPressed)
         {
             case 27:    // esc
-                phaseInitialize = false;
+                exitGame();
                 break;
             case 110:   // c
-                cout<<"Next Player"<<endl;
-                phaseInitialize = false;
+                exitGame();
                 break;
             case 13:    // enter
                 cout<<"Enter Game"<<endl;
@@ -57,7 +56,6 @@ void GameManager::initializeGame()
     destroyWindow(WINDOW_WELCOME);
     
     if (phasePlay) { playGame(); }
-    
 }
 
 
@@ -66,4 +64,22 @@ void GameManager::playGame()
     cout << "PLAY" << endl;
     WindowBowling windowBowling;
     CameraFeed cameraFeed(windowBowling);
+}
+
+
+void GameManager::exitGame()
+{
+    WindowAlert windowAlert(ALERT_EXIT);
+    
+    int keyPressed = waitKey(0);
+    switch (keyPressed)
+    {
+        case 121:    // y
+            destroyWindow(WINDOW_WELCOME);
+            phaseInitialize = false;
+            break;
+        case 110:   // n
+            break;
+    }
+    destroyWindow(WINDOW_ALERT);
 }
