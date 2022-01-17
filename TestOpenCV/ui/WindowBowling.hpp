@@ -17,53 +17,50 @@
 using namespace cv;
 using namespace std;
 
-const vector<Point> pinLocations = {
-    Point(256, 488),
-    Point(160, 392),
-    Point(352, 392),
-    Point( 64, 296),
-    Point(256, 296),
-    Point(448, 296),
-    Point(160, 200),
-    Point(352, 200),
-    Point(256, 104)
-};
-
-const int shadowOffset = 1;
-const int pinRadius = 20;
-const int pinCoverRadius = 8;
-const int pinShadowRadius = 21;
-const int pinKnockDownRadius = 22;
-const int pinBackgroundRadius = 25;
-const double fontScale = 0.75;
 
 class WindowBowling
 {
 private:
+    // Window constants
+    const int WINDOW_WIDTH = 512;
+    const int WINDOW_HEIGHT = 750;
     
+    // Pin constants
+    const vector<Point> PIN_LOCATIONS = {
+        Point(256, 488),
+        Point(160, 392),
+        Point(352, 392),
+        Point( 64, 296),
+        Point(256, 296),
+        Point(448, 296),
+        Point(160, 200),
+        Point(352, 200),
+        Point(256, 104)
+    };
+    const int SHADOW_OFFSET = 1;
+    const int PIN_RADIUS = 20;
+    const int PIN_COVER_RADIUS = 8;
+    const int PIN_SHADOW_RADIUS = 21;
+    const int PIN_KNOCKED_DOWN_RADIUS = 22;
+    const int PIN_BACKGROUND_RADIUS = 25;
+    const double FONT_SCALE = 0.75;
     const int OFFSET_TEXT_X = 25;
     const int OFFSET_TEXT_Y = 20;
-        
+
     Mat window;
+    void placeStaticElements();
     void initPins();
-    
-    
-    void onMouse(int event, int x, int y);
-    static void onMouse(int event, int x, int y, int, void* userdata);
     
 public:
     WindowBowling();
     ~WindowBowling();
     
-    void staticElements(int amountPlayers, int amountRounds);
     void changeCurrentPlayer(int currPlayer);
     void changeCurrentThrow(int currThrow);
     void changeCurrentPoints(int currPoints);
-    void changeCurrentRank(string rankNames[]);
+    void changeCurrentRank(vector<string> playerRank);
     void showPinUp(int pinNr);
-    void showPinDown(int pinNr);
     void allPinsDown();
-    
     void updateWindow();
 };
 

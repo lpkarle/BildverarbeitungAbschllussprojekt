@@ -24,7 +24,7 @@ void WindowAlert::placeStaticElements()
 {
     window = Mat(WINDOW_HEIGHT, WINDOW_WIDH, CV_8UC3, WHITE);
     rectangle(window, Point(0, 0), Point(WINDOW_WIDH, 50), BLUE, FILLED);
-    putText(window, msg, Point(10, 35), FONT_HERSHEY_DUPLEX, 0.5, WHITE);
+    putText(window, msg, Point(10, 35), FONT_HERSHEY_DUPLEX, 0.75, WHITE);
 }
 
 

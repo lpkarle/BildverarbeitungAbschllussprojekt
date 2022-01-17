@@ -32,6 +32,10 @@ const string LBL_ROUNDS = "Nr of Rounds:";
 const string BTN_CANCEL = "Cancel";
 const string BTN_PLAY = "Play";
 const string ALERT_EXIT = "Do you realy want to exit the game?";
+const string PLAYER_ONE = "P_1";
+const string PLAYER_TWO = "P_2";
+const string PLAYER_THREE = "P_3";
+
 
 // Window Bowlilng
 const string CURRENT_PLAYER = "Current Player:";

@@ -33,7 +33,6 @@
 		97001AE92795DE0400AFE64A /* WindowAlert.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WindowAlert.hpp; sourceTree = "<group>"; };
 		9712D4CE278EE89F0098AA5C /* GameManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GameManager.cpp; sourceTree = "<group>"; };
 		9712D4CF278EE89F0098AA5C /* GameManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GameManager.hpp; sourceTree = "<group>"; };
-		97143F3B2785ABD7009DCB69 /* rabbit.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = rabbit.jpeg; sourceTree = "<group>"; };
 		97143F3E2785C50F009DCB69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		97143F412788662F009DCB69 /* WindowBowling.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = WindowBowling.cpp; sourceTree = "<group>"; };
 		97143F422788662F009DCB69 /* WindowBowling.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WindowBowling.hpp; sourceTree = "<group>"; };
@@ -64,14 +63,6 @@
 				9712D4CF278EE89F0098AA5C /* GameManager.hpp */,
 			);
 			path = logic;
-			sourceTree = "<group>";
-		};
-		97143F3A2785ABAE009DCB69 /* assets */ = {
-			isa = PBXGroup;
-			children = (
-				97143F3B2785ABD7009DCB69 /* rabbit.jpeg */,
-			);
-			path = assets;
 			sourceTree = "<group>";
 		};
 		97143F40278865DF009DCB69 /* ui */ = {
@@ -109,7 +100,6 @@
 			isa = PBXGroup;
 			children = (
 				9712D4CD278EE8630098AA5C /* logic */,
-				97143F3A2785ABAE009DCB69 /* assets */,
 				97143F40278865DF009DCB69 /* ui */,
 				977B7B132719B5A000689448 /* main.cpp */,
 				97143F3E2785C50F009DCB69 /* Info.plist */,

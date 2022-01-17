@@ -11,20 +11,15 @@
 
 GameManager::GameManager()
 {
-    initializeGame();
+    initGame();
 }
 
 GameManager::~GameManager() { }
 
 
-void GameManager::initializeGame()
+void GameManager::initGame()
 {
     phaseInitialize = true;
-    
-    currentRound = 1;
-    currentPlayer = 0;
-    currentThrow = 1;
-
     WindowWelcome windowWelcome;
     
     while (phaseInitialize)
@@ -42,27 +37,35 @@ void GameManager::initializeGame()
                 cout<<"Enter Game"<<endl;
                 phaseInitialize = false;
                 phasePlay = true;
+                numberOfPlayers = windowWelcome.getNrOfPlayers();
+                numberOfThrows = windowWelcome.getNrOfRounds();
                 break;
         }
-        
         if (!phaseInitialize) break;
     }
-    
-    numberOfPlayers = windowWelcome.getNrOfPlayers();
-    numberOfThrows = windowWelcome.getNrOfRounds();
-    
-    cout << "Player Amount " << numberOfPlayers << " Number of Throws " << numberOfThrows << endl;
-    
+        
     destroyWindow(WINDOW_WELCOME);
     
-    if (phasePlay) { playGame(); }
+    if (phasePlay) { playGame(initPlayerList()); }
 }
 
 
-void GameManager::playGame()
+vector<string> GameManager::initPlayerList()
+{
+    vector<string> playerList;
+    
+    if (numberOfPlayers >= 1) { playerList.insert(playerList.end(), PLAYER_ONE); }
+    if (numberOfPlayers >= 2) { playerList.insert(playerList.end(), PLAYER_TWO); }
+    if (numberOfPlayers >= 3) { playerList.insert(playerList.end(), PLAYER_THREE); }
+    return playerList;
+}
+
+
+void GameManager::playGame(vector<string> playerList)
 {
     cout << "PLAY" << endl;
     WindowBowling windowBowling;
+    windowBowling.changeCurrentRank(playerList);
     CameraFeed cameraFeed(windowBowling);
 }
 
@@ -75,7 +78,6 @@ void GameManager::exitGame()
     switch (keyPressed)
     {
         case 121:    // y
-            destroyWindow(WINDOW_WELCOME);
             phaseInitialize = false;
             break;
         case 110:   // n

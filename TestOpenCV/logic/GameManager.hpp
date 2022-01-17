@@ -34,8 +34,9 @@ private:
     bool phaseGameFinished;
     
     
-    void initializeGame();
-    void playGame();
+    void initGame();
+    vector<string> initPlayerList();
+    void playGame(vector<string> playerList);
     void exitGame();
     void endGame();
     
