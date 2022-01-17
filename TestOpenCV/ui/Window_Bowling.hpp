@@ -37,8 +37,8 @@ public:
     void changeCurrentThrow(int currThrow);
     void changeCurrentPoints(int currPoints);
     void changeCurrentRank(string rankNames[]);
-    void knockDownPin(int pinNr);
-    
+    void showPinUp(int pinNr);
+    void showPinDown(int pinNr);
 };
 
 #endif /* Window_Bowling_hpp */

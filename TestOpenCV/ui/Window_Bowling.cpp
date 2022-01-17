@@ -18,7 +18,7 @@ WindowBowling::WindowBowling(int amountPlayers, int amountRounds)
 
 WindowBowling::~WindowBowling() {}
 
-void WindowBowling::initPins()
+void WindowBowling::initPins()  
 {
     circle(window, Point(257, 105), 21, Scalar(200, 200, 200), FILLED);  // shadow
     circle(window, Point(256, 104), 20, Scalar(255, 255, 255), FILLED);  // kegel
@@ -67,13 +67,11 @@ void WindowBowling::initPins()
     
 }
 
-void WindowBowling::knockDownPin(int pinNr)
+void WindowBowling::showPinDown(int pinNr)
 {
     
     if (pinNr <= 0 || pinNr > 9) return;
-    
-    cout << "Knockdown " << pinNr << endl;
-    
+        
     switch (pinNr)
     {
         case 1:
@@ -102,6 +100,73 @@ void WindowBowling::knockDownPin(int pinNr)
             break;
         case 9:
             circle(window, Point(256, 488), 22, GREY, FILLED);
+            break;
+    }
+    
+    updateWindow();
+}
+
+
+void WindowBowling::showPinUp(int pinNr)
+{
+    
+    if (pinNr <= 0 || pinNr > 9) return;
+        
+    switch (pinNr)
+    {
+        case 1:
+            circle(window, Point(256, 104), 25, WHITE, FILLED);  // background
+            circle(window, Point(257, 105), 21, Scalar(200, 200, 200), FILLED);  // shadow
+            circle(window, Point(256, 104), 20, Scalar(255, 255, 255), FILLED);  // kegel
+            circle(window, Point(256, 104), 8, Scalar(0, 0, 255), FILLED);       // deckel
+            break;
+        case 2:
+            circle(window, Point(160, 200), 25, WHITE, FILLED);  // background
+            circle(window, Point(161, 201), 21, Scalar(200,200,200), FILLED);
+            circle(window, Point(160, 200), 20, Scalar(255,255,255), FILLED);
+            circle(window, Point(160, 200), 8, Scalar(0,0,255), FILLED);
+            break;
+        case 3:
+            circle(window, Point(352, 200), 25, WHITE, FILLED);  // background
+            circle(window, Point(353, 201), 21, Scalar(200,200,200), FILLED);
+            circle(window, Point(352, 200), 20, Scalar(255,255,255), FILLED);
+            circle(window, Point(352, 200), 8, Scalar(0,0,255), FILLED);
+            break;
+        case 4:
+            circle(window, Point(64, 296), 25, WHITE, FILLED);  // background
+            circle(window, Point(65, 297), 21, Scalar(200, 200, 200), FILLED);
+            circle(window, Point(64, 296), 20, Scalar(255, 255, 255), FILLED);
+            circle(window, Point(64, 296), 8, Scalar(0, 0, 255), FILLED);
+            break;
+        case 5:
+            circle(window, Point(256, 296), 25, WHITE, FILLED);  // background
+            circle(window, Point(257, 297), 21, Scalar(200,200,200), FILLED);
+            circle(window, Point(256, 296), 20, Scalar(255,255,255), FILLED);
+            circle(window, Point(256, 296), 8, Scalar(0,0,255), FILLED);
+            break;
+        case 6:
+            circle(window, Point(448, 296), 25, WHITE, FILLED);  // background
+            circle(window, Point(449, 297), 21, Scalar(200, 200, 200), FILLED);
+            circle(window, Point(448, 296), 20, Scalar(255, 255, 255), FILLED);
+            circle(window, Point(448, 296), 8, Scalar(0, 0, 255), FILLED);
+            break;
+        case 7:
+            circle(window, Point(160, 392), 25, WHITE, FILLED);  // background
+            circle(window, Point(161, 393), 21, Scalar(200,200,200), FILLED);
+            circle(window, Point(160, 392), 20, Scalar(255, 255, 255), FILLED);
+            circle(window, Point(160, 392), 8, Scalar(0,0,255), FILLED);
+            break;
+        case 8:
+            circle(window, Point(353, 392), 25, WHITE, FILLED);  // background
+            circle(window, Point(353, 393), 21, Scalar(200,200,200), FILLED);
+            circle(window, Point(352, 392), 20, Scalar(255,255,255), FILLED);
+            circle(window, Point(352, 392), 8, Scalar(0,0,255), FILLED);
+            break;
+        case 9:
+            circle(window, Point(256, 488), 25, WHITE, FILLED);  // background
+            circle(window, Point(257, 489), 21, Scalar(200,200,200), FILLED);
+            circle(window, Point(256, 488), 20, Scalar(255, 255, 255), FILLED);
+            circle(window, Point(256, 488), 8, Scalar(0,0,255), FILLED);
             break;
     }
     
