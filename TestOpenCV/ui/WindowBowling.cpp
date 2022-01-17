@@ -55,12 +55,10 @@ void WindowBowling::showPinUp(int pinNr)
     circle(window, pin, PIN_COVER_RADIUS, RED, FILLED);                                               // cover
 }
 
-void WindowBowling::changeCurrentPlayer(int currPlayer)
+void WindowBowling::changeCurrentPlayer(string currPlayer)
 {
-    if (currPlayer <= 0) return;
-    
     rectangle(window, Point(250, 0), Point(305, 50), BLUE, FILLED);
-    putText(window, to_string(currPlayer), Point(260, 38), FONT_HERSHEY_COMPLEX, 1.2, WHITE);
+    putText(window, currPlayer, Point(260, 38), FONT_HERSHEY_COMPLEX, 1.2, WHITE);
 }
 
 void WindowBowling::changeCurrentThrow(int currThrow)

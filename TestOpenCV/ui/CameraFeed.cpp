@@ -6,61 +6,14 @@
 //
 
 #include "CameraFeed.hpp"
+#include "../Constants.cpp"
 
-CameraFeed::CameraFeed(WindowBowling windowBowling)
+
+CameraFeed::CameraFeed()
 {
     while (!cameraCapture.isOpened())
     {
         cameraCapture = VideoCapture(1);
-    }
-    
-    Mat frame;
-    bool runtime = true;
-    
-    while(true) {
-        
-        
-        
-        cameraCapture >> frame;
-        if(frame.empty()) break;
-        
-        auto images = preprocessImage(frame);
-        
-        
-        // get the shapes/contours from the eroded image
-        // and filter the bottles
-        vector<vector<Point>> bottleContours = getBottleContours(getContours(images[5]));
-                
-                
-        // check the bottle location and mark them in standard and hsv
-        bottleLocation(images[2]);
-        
-        windowBowling.allPinsDown();
-        
-        for (auto pin : pinsUp(bottleContours, images[2]))
-        {
-            windowBowling.showPinUp(pin);
-        }
-        
-        windowBowling.updateWindow();
-        imshow("Frame Camera", images[0]);
-        imshow("Frame HSV", images[2]);
-        
-        int keyPressed = waitKey(10);
-        switch (keyPressed)
-        {
-            case 27:    // esc
-                runtime = false;
-                break;
-            case 110:   // n
-                cout<<"Next Player"<<endl;
-                break;
-            case 116:   // t
-                cout<<"Next Throw"<<endl;
-                break;
-        }
-        
-        if (!runtime) return;
     }
 }
 
@@ -68,6 +21,29 @@ CameraFeed::CameraFeed(WindowBowling windowBowling)
 CameraFeed::~CameraFeed()
 {
     cameraCapture.release();
+}
+
+vector<int> CameraFeed::start()
+{
+    Mat frame, frameHSV, frameDilation;
+    vector<int> pins;
+    
+    cameraCapture >> frame;
+    if(frame.empty()) return pins;
+        
+    auto images = preprocessImage(frame);
+    frameHSV = images[2];
+    frameDilation = images[5];
+        
+    // get the shapes/contours from the eroded image
+    // and filter the bottles
+    vector<vector<Point>> bottleContours = getBottleContours(getContours(frameDilation));
+                
+    // check the bottle location and mark them in standard and hsv
+    bottleLocation(frameHSV);
+    pins = pinsUp(bottleContours, frameHSV);
+    
+    return pins;   
 }
 
 
@@ -109,9 +85,7 @@ vector<vector<Point>> CameraFeed::getContours(Mat img)
 {
     vector<vector<Point>> contours;
     vector<Vec4i> hierarchy;
-
     findContours(img, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
-    
     return contours;
 }
 
@@ -124,7 +98,6 @@ vector<vector<Point>> CameraFeed::getBottleContours(vector<vector<Point>> contou
     for (int i = 0; i < contours.size(); i++)
     {
         int area = contourArea(contours[i]);
-        //cout << area << endl;
                 
         if (area >= 580 && area <= 750)
         {
@@ -139,7 +112,6 @@ vector<vector<Point>> CameraFeed::getBottleContours(vector<vector<Point>> contou
             }
         }
     }
-    
     return contourCircle;
 }
 
@@ -163,6 +135,8 @@ vector<int> CameraFeed::pinsUp(vector<vector<Point>> circleContours, Mat img)
             }
         }
     }
+    
+    imshow(WINDOW_CAMERA, img);
     
     return pins;
 }

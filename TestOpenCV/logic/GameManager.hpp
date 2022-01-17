@@ -38,7 +38,6 @@ private:
     vector<string> initPlayerList();
     void playGame(vector<string> playerList);
     void exitGame();
-    void endGame();
     
 public:
     GameManager();

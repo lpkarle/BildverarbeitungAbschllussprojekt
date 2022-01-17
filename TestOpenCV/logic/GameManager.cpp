@@ -63,10 +63,47 @@ vector<string> GameManager::initPlayerList()
 
 void GameManager::playGame(vector<string> playerList)
 {
-    cout << "PLAY" << endl;
+    destroyWindow(WINDOW_WELCOME);
+    
+    phasePlay = true;
     WindowBowling windowBowling;
     windowBowling.changeCurrentRank(playerList);
-    CameraFeed cameraFeed(windowBowling);
+    windowBowling.changeCurrentPlayer(playerList[0]);
+    CameraFeed cameraFeed;
+    
+    while (phasePlay)
+    {
+        windowBowling.allPinsDown();
+        
+        for (auto pin : cameraFeed.start())
+        {
+            cout << pin << "; ";
+            windowBowling.showPinUp(pin);
+            windowBowling.updateWindow();
+        }
+        cout << endl;
+        
+        int keyPressed = waitKey(10);
+        switch (keyPressed)
+        {
+            case 27:    // esc
+                exitGame();
+                break;
+            case 99:    // c
+                exitGame();
+                break;
+            case 13:    // enter
+                cout<<"Enter Game"<<endl;
+                break;
+        }
+        if (!phasePlay) break;
+    }
+    
+    
+    destroyWindow(WINDOW_BOWLING);
+    destroyWindow(WINDOW_CAMERA);
+    
+    cout << "PLAY" << endl;
 }
 
 
@@ -79,6 +116,7 @@ void GameManager::exitGame()
     {
         case 121:    // y
             phaseInitialize = false;
+            phasePlay = false;
             break;
         case 110:   // n
             break;

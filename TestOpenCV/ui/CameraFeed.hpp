@@ -59,8 +59,10 @@ private:
     void bottleLocation(Mat img);
     
 public:
-    CameraFeed(WindowBowling windowBowling);
+    CameraFeed();
     ~CameraFeed();
+    
+    vector<int> start();
 };
 
 
