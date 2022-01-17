@@ -34,9 +34,7 @@ private:
     int nrOfRounds;
     bool cancelClicked = false;
     bool playClicked = false;
-    
-    void(*callbackCancel)();
-    
+        
     int onMouse(int event, int x, int y);
     static void onMouse(int event, int x, int y, int, void* userdata);
         
@@ -45,9 +43,8 @@ private:
     
 public:
     void updateWindow();
-    // WindowWelcome(void);
-    WindowWelcome(void(*func)());
-    ~WindowWelcome(void);
+    WindowWelcome();
+    ~WindowWelcome();
     
     void changePlayerAmount();
     void changeThrowRounds();
@@ -57,9 +54,5 @@ public:
     bool getCancelClicked() { return cancelClicked; };
     bool getPlayClicked() { return playClicked; };
 };
-
-
-enum Buttons { PLAYER_PLUS, PLAYER_MINUS, ROUND_PLUS, ROUND_MINUS, CANCEL, PLAY};
-
 
 #endif /* WindowWelcome_hpp */

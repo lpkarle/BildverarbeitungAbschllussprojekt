@@ -10,6 +10,9 @@
 
 #include <stdio.h>
 #include <iostream>
+#include "../ui/WindowWelcome.hpp"
+#include "../ui/WindowBowling.hpp"
+#include "../ui/CameraFeed.hpp"
 
 using namespace std;
 
@@ -23,20 +26,22 @@ private:
     int currentThrow;
     int currentRound;
     
+    bool phaseInitialize;
+    bool phasePlay;
+    
     bool phaseThrow;
     bool phaseGameFinished;
     
+    WindowWelcome windowWelcome;
+    WindowBowling windowBowling;
+    
     void initializeGame();
+    void playGame();
+    void endGame();
     
 public:
-    GameManager();
+    GameManager(WindowWelcome windowWelcome, WindowBowling windowBowling);
     ~GameManager();
-    
-    void setNumberOfPlayers(int numberOfPlayers) { this->numberOfPlayers = numberOfPlayers; }
-    void setNumberOfThrows(int numberOfThrows) { this->numberOfThrows = numberOfThrows; }
-    
-    void startGameWith(int numberOfPlayers, int numberOfThrows);
-    void endGame();
 };
 
 #endif /* GameManager_hpp */

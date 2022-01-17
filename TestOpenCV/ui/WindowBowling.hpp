@@ -46,13 +46,13 @@ private:
         
     Mat window;
     void initPins();
-    void updateWindow();
+    
     
     void onMouse(int event, int x, int y);
     static void onMouse(int event, int x, int y, int, void* userdata);
     
 public:
-    WindowBowling(int amountPlayers, int amountRounds);
+    WindowBowling();
     ~WindowBowling();
     
     void staticElements(int amountPlayers, int amountRounds);
@@ -63,6 +63,8 @@ public:
     void showPinUp(int pinNr);
     void showPinDown(int pinNr);
     void allPinsDown();
+    
+    void updateWindow();
 };
 
 #endif /* Window_Bowling_hpp */

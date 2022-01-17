@@ -8,12 +8,11 @@
 #include "WindowWelcome.hpp"
 #include "../Constants.cpp"
 
-WindowWelcome::WindowWelcome(void(*func)())
+WindowWelcome::WindowWelcome()
 {
     nrOfPlayers = MIN_NR_OF_PLAYERS;
     nrOfRounds = MIN_NR_OF_ROUNDS;
     
-    callbackCancel = func;
     placeStaticElements();
     updateWindow();
     setMouseCallback(windowName, onMouse, this);
@@ -117,7 +116,6 @@ int WindowWelcome::onMouse(int event, int x, int y)
             y >= locationBtnCancel[0].y && y <= locationBtnCancel[1].y)
         {
             cout << "BUTTON CANCEL" << endl;
-            callbackCancel();
         }
         else if (x >= locationBtnPlay[0].x && x <= locationBtnPlay[1].x &&
                  y >= locationBtnPlay[0].y && y <= locationBtnPlay[1].y)

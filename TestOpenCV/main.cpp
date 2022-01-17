@@ -88,35 +88,6 @@ int main( void )
 
 // ------------------------------------------------- WEBCAM
 
-int key_pressed;
-bool runtime = true;
-
-int amountPlayers = 2;
-int amountRounds = 2;
-
-void updateWindow(Mat currentWindow)
-{
-    imshow(WINDOW_NAME, currentWindow);
-}
-
-void cancelCallback()
-{
-    runtime = false;
-    key_pressed = 27;
-    cout << "Cancel Callback!" << endl;
-    cout << runtime << endl;
-}
-
-void playCallback()
-{
-    runtime = false;
-    key_pressed = 27;
-    cout << "Cancel Callback!" << endl;
-    cout << runtime << endl;
-}
-
-
-
 int main(int argc, const char * argv[])
 {
     // ---- Player and Rounds
@@ -148,11 +119,14 @@ int main(int argc, const char * argv[])
     
     // ---- Game
     
-    GameManager gameManager;
+    WindowWelcome windowWelcome;
+    WindowBowling windowBowling;
     
-    WindowBowling windowBowling(amountPlayers, amountRounds);
+    GameManager gameManager(windowWelcome, windowBowling);
     
-    CameraFeed cameraFeed(windowBowling);
+    //WindowBowling windowBowling(amountPlayers, amountRounds);
+    
+    //CameraFeed cameraFeed(windowBowling);
     
     
     

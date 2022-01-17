@@ -9,11 +9,11 @@
 #include "../Constants.cpp"
 
 
-WindowBowling::WindowBowling(int amountPlayers, int amountRounds)
+WindowBowling::WindowBowling()
 {
-    staticElements(amountPlayers, amountRounds);
+    staticElements(1,1);
     initPins();
-    updateWindow();
+    //updateWindow();
 }
 
 WindowBowling::~WindowBowling() {}
@@ -54,7 +54,7 @@ void WindowBowling::showPinUp(int pinNr)
     circle(window, pin, pinRadius, WHITE, FILLED);                                                  // pin
     circle(window, pin, pinCoverRadius, RED, FILLED);                                               // cover
     
-    updateWindow();
+    //updateWindow();
 }
 
 void WindowBowling::changeCurrentPlayer(int currPlayer)
@@ -65,21 +65,21 @@ void WindowBowling::changeCurrentPlayer(int currPlayer)
     rectangle(window, Point(250, 0), Point(305, 50), BLUE, FILLED);
     putText(window, to_string(currPlayer), Point(260, 38), FONT_HERSHEY_COMPLEX, 1.2, WHITE);
     
-    updateWindow();
+    //updateWindow();
 }
 
 void WindowBowling::changeCurrentThrow(int currThrow)
 {
     rectangle(window, Point(100, 550), Point(200, 590), WHITE, FILLED);
     putText(window, to_string(currThrow), Point(100, 580), FONT_HERSHEY_COMPLEX, 0.8, GREY_DARK);
-    updateWindow();
+    //updateWindow();
 }
 
 void WindowBowling::changeCurrentPoints(int currPoints)
 {
     rectangle(window, Point(100, 600), Point(200, 640), WHITE, FILLED);
     putText(window, to_string(currPoints), Point(100, 630), FONT_HERSHEY_COMPLEX, 0.8, GREY_DARK);
-    updateWindow();
+    //updateWindow();
 }
 
 void WindowBowling::changeCurrentRank(string rankNames[])
@@ -88,7 +88,7 @@ void WindowBowling::changeCurrentRank(string rankNames[])
     putText(window, rankNames[0], Point(300, 580), FONT_HERSHEY_COMPLEX, 0.8, GREY_DARK);
     putText(window, rankNames[1], Point(300, 630), FONT_HERSHEY_COMPLEX, 0.8, GREY_DARK);
     putText(window, rankNames[2], Point(300, 680), FONT_HERSHEY_COMPLEX, 0.8, GREY_DARK);
-    updateWindow();
+   // updateWindow();
 }
 
 void WindowBowling::staticElements(int amountPlayers, int amountRounds)
