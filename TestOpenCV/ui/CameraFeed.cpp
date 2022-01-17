@@ -15,7 +15,8 @@ CameraFeed::CameraFeed(WindowBowling windowBowling)
     }
     
     Mat frame;
-        
+    bool runtime = true;
+    
     while(true) {
         
         
@@ -29,9 +30,7 @@ CameraFeed::CameraFeed(WindowBowling windowBowling)
         // get the shapes/contours from the eroded image
         // and filter the bottles
         vector<vector<Point>> bottleContours = getBottleContours(getContours(images[5]));
-        
-        cout << "--------- bottles up -------> " << bottleContours.size() << endl;
-        
+                
                 
         // check the bottle location and mark them in standard and hsv
         bottleLocation(images[2]);
@@ -46,8 +45,21 @@ CameraFeed::CameraFeed(WindowBowling windowBowling)
         imshow("Frame Camera", images[0]);
         imshow("Frame HSV", images[2]);
         
-        if (waitKey(10) == 27) break;
-    
+        int keyPressed = waitKey(10);
+        switch (keyPressed)
+        {
+            case 27:    // esc
+                runtime = false;
+                break;
+            case 110:   // n
+                cout<<"Next Player"<<endl;
+                break;
+            case 116:   // t
+                cout<<"Next Throw"<<endl;
+                break;
+        }
+        
+        if (!runtime) return;
     }
 }
 
@@ -153,36 +165,6 @@ vector<int> CameraFeed::pinsUp(vector<vector<Point>> circleContours, Mat img)
     
     return pins;
 }
-
-
-void CameraFeed::onMouse(int event, int x, int y, int, void* userdata)
-{
-    CameraFeed* cameraFeed = reinterpret_cast<CameraFeed*>(userdata);
-    cameraFeed->onMouse(event, x, y);
-}
-
-int CameraFeed::onMouse(int event, int x, int y)
-{
-    if  ( event == EVENT_LBUTTONDOWN )
-    {
-        // check the button positions
-        if (x >= locationBtnNextRound[0].x && x <= locationBtnNextRound[1].x &&
-            y >= locationBtnNextRound[0].y && y <= locationBtnNextRound[1].y)
-        {
-            cout << "BUTTON MINUS PLAYER" << endl;
-    
-        }
-        else if (x >= locationBtnNextRound[0].x && x <= locationBtnNextRound[1].x &&
-                 y >= locationBtnNextRound[0].y && y <= locationBtnNextRound[1].y)
-        {
-            cout << "BUTTON PLUS PLAYER" << endl;
-            
-        }
-    }
-    return 1;
-
-}
-
 
 
 // TEST

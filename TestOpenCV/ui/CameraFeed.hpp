@@ -55,10 +55,6 @@ private:
     vector<vector<Point>> getBottleContours(vector<vector<Point>> contours);
     vector<int> pinsUp(vector<vector<Point>> circleContours, Mat img);
     
-    int onMouse(int event, int x, int y);
-    static void onMouse(int event, int x, int y, int, void* userdata);
-    
-    
     // test
     void bottleLocation(Mat img);
     

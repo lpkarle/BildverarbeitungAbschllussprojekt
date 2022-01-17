@@ -93,7 +93,7 @@ void WindowBowling::changeCurrentRank(string rankNames[])
 
 void WindowBowling::staticElements(int amountPlayers, int amountRounds)
 {
-    window = Mat(700, 512, CV_8UC3, WHITE);
+    window = Mat(750, 512, CV_8UC3, WHITE);
     
     rectangle(window, Point(0, 0), Point(512, 50), BLUE, FILLED);
     putText(window, CURRENT_PLAYER, Point(10, 35), FONT_HERSHEY_DUPLEX, 1, WHITE);
@@ -109,7 +109,25 @@ void WindowBowling::staticElements(int amountPlayers, int amountRounds)
     if (amountPlayers >= 2) putText(window, "2.", Point(266, 630), FONT_HERSHEY_DUPLEX, 0.8, GREY_DARK);
     if (amountPlayers == 3) putText(window, "3.", Point(266, 680), FONT_HERSHEY_DUPLEX, 0.8, GREY_DARK);
     
+    rectangle(window, Point(10, 700), Point(150, 730), BLUE, FILLED);
 }
+
+
+void WindowBowling::onMouse(int event, int x, int y, int, void* userdata)
+{
+    WindowBowling* windowBowling = reinterpret_cast<WindowBowling*>(userdata);
+    windowBowling->onMouse(event, x, y);
+}
+
+
+void WindowBowling::onMouse(int event, int x, int y)
+{
+    if  ( event == EVENT_LBUTTONDOWN )
+    {
+        cout << "Yes Mouse Callback" << endl;
+    }
+}
+
 
 void WindowBowling::updateWindow()
 {

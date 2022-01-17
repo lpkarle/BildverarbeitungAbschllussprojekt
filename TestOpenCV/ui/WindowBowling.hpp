@@ -48,6 +48,9 @@ private:
     void initPins();
     void updateWindow();
     
+    void onMouse(int event, int x, int y);
+    static void onMouse(int event, int x, int y, int, void* userdata);
+    
 public:
     WindowBowling(int amountPlayers, int amountRounds);
     ~WindowBowling();
