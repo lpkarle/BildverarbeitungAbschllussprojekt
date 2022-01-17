@@ -28,7 +28,6 @@ const Point locationBtnPlay[ 2 ]   = { Point(272, 200), Point(502, 240) };
 class WindowWelcome
 {
 private:
-    string windowName = "window_welcome";
     Mat window;
     int nrOfPlayers;
     int nrOfRounds;

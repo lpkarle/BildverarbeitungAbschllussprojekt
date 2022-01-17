@@ -9,13 +9,8 @@
 #include "../Constants.cpp"
 
 
-GameManager::GameManager(WindowWelcome windowWelcome, WindowBowling windowBowling)
+GameManager::GameManager()
 {
-    this->windowWelcome = windowWelcome;
-    //this->windowBowling = windowBowling;
-    
-    //windowBowling.updateWindow();
-    
     initializeGame();
 }
 
@@ -30,7 +25,7 @@ void GameManager::initializeGame()
     currentPlayer = 0;
     currentThrow = 1;
 
-    
+    WindowWelcome windowWelcome;
     
     while (phaseInitialize)
     {
@@ -59,6 +54,8 @@ void GameManager::initializeGame()
     
     cout << "Player Amount " << numberOfPlayers << " Number of Throws " << numberOfThrows << endl;
     
+    destroyWindow(WINDOW_WELCOME);
+    
     if (phasePlay) { playGame(); }
     
 }
@@ -66,5 +63,7 @@ void GameManager::initializeGame()
 
 void GameManager::playGame()
 {
-    
+    cout << "PLAY" << endl;
+    WindowBowling windowBowling;
+    CameraFeed cameraFeed(windowBowling);
 }

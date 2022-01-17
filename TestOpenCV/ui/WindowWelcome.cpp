@@ -15,7 +15,7 @@ WindowWelcome::WindowWelcome()
     
     placeStaticElements();
     updateWindow();
-    setMouseCallback(windowName, onMouse, this);
+    setMouseCallback(WINDOW_WELCOME, onMouse, this);
 }
 
 WindowWelcome::~WindowWelcome(void) {}
@@ -131,7 +131,7 @@ int WindowWelcome::onMouse(int event, int x, int y)
 
 void WindowWelcome::updateWindow()
 {
-    imshow(windowName, window);
+    imshow(WINDOW_WELCOME, window);
 }
 
 

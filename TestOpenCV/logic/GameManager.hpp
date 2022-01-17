@@ -32,15 +32,13 @@ private:
     bool phaseThrow;
     bool phaseGameFinished;
     
-    WindowWelcome windowWelcome;
-    WindowBowling windowBowling;
     
     void initializeGame();
     void playGame();
     void endGame();
     
 public:
-    GameManager(WindowWelcome windowWelcome, WindowBowling windowBowling);
+    GameManager();
     ~GameManager();
 };
 

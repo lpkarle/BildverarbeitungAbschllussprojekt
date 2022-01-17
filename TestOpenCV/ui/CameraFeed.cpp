@@ -42,6 +42,7 @@ CameraFeed::CameraFeed(WindowBowling windowBowling)
             windowBowling.showPinUp(pin);
         }
         
+        windowBowling.updateWindow();
         imshow("Frame Camera", images[0]);
         imshow("Frame HSV", images[2]);
         

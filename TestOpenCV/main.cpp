@@ -119,10 +119,7 @@ int main(int argc, const char * argv[])
     
     // ---- Game
     
-    WindowWelcome windowWelcome;
-    WindowBowling windowBowling;
-    
-    GameManager gameManager(windowWelcome, windowBowling);
+    GameManager gameManager;
     
     //WindowBowling windowBowling(amountPlayers, amountRounds);
     

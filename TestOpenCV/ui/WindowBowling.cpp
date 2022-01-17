@@ -13,7 +13,7 @@ WindowBowling::WindowBowling()
 {
     staticElements(1,1);
     initPins();
-    //updateWindow();
+    updateWindow();
 }
 
 WindowBowling::~WindowBowling() {}
@@ -131,5 +131,5 @@ void WindowBowling::onMouse(int event, int x, int y)
 
 void WindowBowling::updateWindow()
 {
-    imshow("Bowling Pins", window);
+    imshow(WINDOW_BOWLING, window);
 }
