@@ -13,10 +13,6 @@ CameraFeed::CameraFeed(WindowBowling windowBowling)
     {
         cameraCapture = VideoCapture(1);
     }
-        
-    //int framesAmountToCompare = 24;
-    //int frameCounter = 1;
-    //int meanBottleCount = 0;
     
     Mat frame;
         
@@ -39,25 +35,16 @@ CameraFeed::CameraFeed(WindowBowling windowBowling)
                 
         // check the bottle location and mark them in standard and hsv
         bottleLocation(images[2]);
-        checkBottleLocation(bottleContours, images[2], windowBowling);
+        
+        windowBowling.allPinsDown();
+        
+        for (auto pin : pinsUp(bottleContours, images[2]))
+        {
+            windowBowling.showPinUp(pin);
+        }
         
         imshow("Frame Camera", images[0]);
         imshow("Frame HSV", images[2]);
-        
-        
-        //for (int i = 0; i < (int) images.size(); i++)
-        //{
-        //    if (i == 0 || i == 2)
-        //   {
-        //        // check the bottle location and mark them in standard and hsv
-        //        bottleLocation(images[i]);
-        //        checkBottleLocation(bottleContours, images[i]);
-        //        bottleLocation(images[i]);
-        //        checkBottleLocation(bottleContours, images[i]);
-        //
-        //        imshow("Frame " + to_string(i), images[i]);
-        //    }
-        //}
         
         if (waitKey(10) == 27) break;
     
@@ -144,34 +131,27 @@ vector<vector<Point>> CameraFeed::getBottleContours(vector<vector<Point>> contou
 }
 
 
-void CameraFeed::checkBottleLocation(vector<vector<Point>> circleContours, Mat img, WindowBowling windowBowling)
+vector<int> CameraFeed::pinsUp(vector<vector<Point>> circleContours, Mat img)
 {
-    int pinNr = 1;
-    string isUp = "";
+    vector<int> pins;
     
     for (auto circ : circleContours)
     {
         auto boundRect = boundingRect(circ);
         rectangle(img, boundRect.tl(), boundRect.br(), Scalar(0, 255, 0), 2);
-        // putText(img, "Circle", {boundRect.x, boundRect.y - 5}, FONT_HERSHEY_DUPLEX, 0.75, Scalar(0,0,0));
         
-        for (int i = 0; i < (int) pins.size(); i++)
+        for (int i = 0; i < (int) pinAreas.size(); i++)
         {
-            if (boundRect.tl().x >= pins[i].x && boundRect.br().x <= pins[i].x + pinBoxWidth &&
-                boundRect.tl().y >= pins[i].y && boundRect.br().y <= pins[i].y + pinBoxHeight)
+            if (boundRect.tl().x >= pinAreas[i].x && boundRect.br().x <= pinAreas[i].x + pinBoxWidth &&
+                boundRect.tl().y >= pinAreas[i].y && boundRect.br().y <= pinAreas[i].y + pinBoxHeight)
             {
-                isUp += to_string(i + 1) + ", ";
-                windowBowling.showPinUp(i + 1);
+                pins.insert(pins.end(), i + 1);
                 break;
             }
-            else
-            {
-                windowBowling.showPinDown(i + 1);
-            }
         }
-        pinNr++;
     }
-    cout << "Pin " << isUp << " up."<< endl;
+    
+    return pins;
 }
 
 
@@ -208,7 +188,7 @@ int CameraFeed::onMouse(int event, int x, int y)
 // TEST
 void CameraFeed::bottleLocation(Mat img)
 {    
-    for (auto pin : pins)
+    for (auto pin : pinAreas)
     {
         rectangle(img, pin, {pin.x + pinBoxWidth, pin.y + pinBoxHeight}, Scalar(255, 0, 0), 2);
     }

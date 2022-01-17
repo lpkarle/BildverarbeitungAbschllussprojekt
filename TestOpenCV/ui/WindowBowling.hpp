@@ -39,6 +39,7 @@ public:
     void changeCurrentRank(string rankNames[]);
     void showPinUp(int pinNr);
     void showPinDown(int pinNr);
+    void allPinsDown();
 };
 
 #endif /* Window_Bowling_hpp */

@@ -13,7 +13,7 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
 #include <iostream>
-#include "Window_Bowling.hpp"
+#include "WindowBowling.hpp"
 
 using namespace cv;
 using namespace std;
@@ -22,7 +22,7 @@ using namespace std;
 const Point locationBtnNextPlayer[ 2 ] = { Point(290, 80), Point(330, 105) };
 const Point locationBtnNextRound[ 2 ]  = { Point(385, 80), Point(425, 105) };
 
-const vector<Point> pins =  // 1 to 9
+const vector<Point> pinAreas =  // 1 to 9
 {
     Point(200, 65),
     Point(120, 146),
@@ -53,7 +53,7 @@ private:
     
     vector<vector<Point>> getContours(Mat img);
     vector<vector<Point>> getBottleContours(vector<vector<Point>> contours);
-    void checkBottleLocation(vector<vector<Point>> circleContours, Mat img, WindowBowling windowBowling);
+    vector<int> pinsUp(vector<vector<Point>> circleContours, Mat img);
     
     int onMouse(int event, int x, int y);
     static void onMouse(int event, int x, int y, int, void* userdata);

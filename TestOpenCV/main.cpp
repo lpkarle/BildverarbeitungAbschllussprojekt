@@ -7,11 +7,11 @@
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
-//#include <opencv2/opencv.hpp>
 #include <iostream>
 
+#include "logic/GameManager.hpp"
 #include "ui/WindowWelcome.hpp"
-#include "ui/Window_Bowling.hpp"
+#include "ui/WindowBowling.hpp"
 #include "ui/CameraFeed.hpp"
 #include "Constants.cpp"
 
@@ -147,6 +147,8 @@ int main(int argc, const char * argv[])
     
     
     // ---- Game
+    
+    GameManager gameManager;
     
     WindowBowling windowBowling(amountPlayers, amountRounds);
     

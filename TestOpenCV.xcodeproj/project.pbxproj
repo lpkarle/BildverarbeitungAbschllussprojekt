@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9712D4D0278EE89F0098AA5C /* GameManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9712D4CE278EE89F0098AA5C /* GameManager.cpp */; };
-		97143F432788662F009DCB69 /* Window_Bowling.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97143F412788662F009DCB69 /* Window_Bowling.cpp */; };
+		97143F432788662F009DCB69 /* WindowBowling.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97143F412788662F009DCB69 /* WindowBowling.cpp */; };
 		97143F4627887F39009DCB69 /* CameraFeed.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97143F4427887F39009DCB69 /* CameraFeed.cpp */; };
 		97143F482788D277009DCB69 /* Constants.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97143F472788D276009DCB69 /* Constants.cpp */; };
 		97143F4B27898C57009DCB69 /* WindowWelcome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97143F4927898C57009DCB69 /* WindowWelcome.cpp */; };
@@ -32,8 +32,8 @@
 		9712D4CF278EE89F0098AA5C /* GameManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GameManager.hpp; sourceTree = "<group>"; };
 		97143F3B2785ABD7009DCB69 /* rabbit.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = rabbit.jpeg; sourceTree = "<group>"; };
 		97143F3E2785C50F009DCB69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		97143F412788662F009DCB69 /* Window_Bowling.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Window_Bowling.cpp; sourceTree = "<group>"; };
-		97143F422788662F009DCB69 /* Window_Bowling.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Window_Bowling.hpp; sourceTree = "<group>"; };
+		97143F412788662F009DCB69 /* WindowBowling.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = WindowBowling.cpp; sourceTree = "<group>"; };
+		97143F422788662F009DCB69 /* WindowBowling.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WindowBowling.hpp; sourceTree = "<group>"; };
 		97143F4427887F39009DCB69 /* CameraFeed.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CameraFeed.cpp; sourceTree = "<group>"; };
 		97143F4527887F39009DCB69 /* CameraFeed.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CameraFeed.hpp; sourceTree = "<group>"; };
 		97143F472788D276009DCB69 /* Constants.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Constants.cpp; sourceTree = "<group>"; };
@@ -76,8 +76,8 @@
 			children = (
 				97143F4427887F39009DCB69 /* CameraFeed.cpp */,
 				97143F4527887F39009DCB69 /* CameraFeed.hpp */,
-				97143F412788662F009DCB69 /* Window_Bowling.cpp */,
-				97143F422788662F009DCB69 /* Window_Bowling.hpp */,
+				97143F412788662F009DCB69 /* WindowBowling.cpp */,
+				97143F422788662F009DCB69 /* WindowBowling.hpp */,
 				97143F4927898C57009DCB69 /* WindowWelcome.cpp */,
 				97143F4A27898C57009DCB69 /* WindowWelcome.hpp */,
 			);
@@ -192,7 +192,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				97143F432788662F009DCB69 /* Window_Bowling.cpp in Sources */,
+				97143F432788662F009DCB69 /* WindowBowling.cpp in Sources */,
 				9712D4D0278EE89F0098AA5C /* GameManager.cpp in Sources */,
 				97143F4B27898C57009DCB69 /* WindowWelcome.cpp in Sources */,
 				97143F4627887F39009DCB69 /* CameraFeed.cpp in Sources */,

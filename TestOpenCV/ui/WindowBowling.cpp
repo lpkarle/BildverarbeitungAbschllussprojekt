@@ -5,7 +5,7 @@
 //  Created by Lukas Karle on 07.01.22.
 //
 
-#include "Window_Bowling.hpp"
+#include "WindowBowling.hpp"
 #include "../Constants.cpp"
 
 
@@ -104,6 +104,19 @@ void WindowBowling::showPinDown(int pinNr)
     }
     
     updateWindow();
+}
+
+void WindowBowling::allPinsDown()
+{
+    circle(window, Point(256, 104), 22, GREY, FILLED);
+    circle(window, Point(160, 200), 22, GREY, FILLED);
+    circle(window, Point(352, 200), 22, GREY, FILLED);
+    circle(window, Point(64, 296), 22, GREY, FILLED);
+    circle(window, Point(256, 296), 22, GREY, FILLED);
+    circle(window, Point(448, 296), 22, GREY, FILLED);
+    circle(window, Point(160, 392), 22, GREY, FILLED);
+    circle(window, Point(352, 392), 22, GREY, FILLED);
+    circle(window, Point(256, 488), 22, GREY, FILLED);
 }
 
 
