@@ -17,6 +17,26 @@
 using namespace cv;
 using namespace std;
 
+const vector<Point> pinLocations = {
+    Point(256, 488),
+    Point(160, 392),
+    Point(352, 392),
+    Point( 64, 296),
+    Point(256, 296),
+    Point(448, 296),
+    Point(160, 200),
+    Point(352, 200),
+    Point(256, 104)
+};
+
+const int shadowOffset = 1;
+const int pinRadius = 20;
+const int pinCoverRadius = 8;
+const int pinShadowRadius = 21;
+const int pinKnockDownRadius = 22;
+const int pinBackgroundRadius = 25;
+const double fontScale = 0.75;
+
 class WindowBowling
 {
 private:

@@ -37,6 +37,7 @@ const string POINTS = "Points:";
 
 // ---------------------------------- Colors
 const Scalar WHITE = Scalar(255, 255, 255);
+const Scalar BLACK = Scalar(0, 0, 0);
 const Scalar BLUE = Scalar(255, 150, 0);
 const Scalar RED = Scalar(0, 0, 255);
 const Scalar GREY = Scalar(200, 200, 200);
