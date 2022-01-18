@@ -46,7 +46,7 @@ void GameManager::initGame()
         
     destroyWindow(WINDOW_WELCOME);
     
-    if (phasePlay) { playGame(initPlayerList()); }
+    if (phasePlay) { playGame(); }
 }
 
 
@@ -61,14 +61,23 @@ vector<string> GameManager::initPlayerList()
 }
 
 
-void GameManager::playGame(vector<string> playerList)
+void GameManager::playGame()
 {
     destroyWindow(WINDOW_WELCOME);
     
     phasePlay = true;
+    currentRound = 1;
+    currentPlayer = 1;
+    currentThrow = 1;
+    auto playerList = initPlayerList();
+    
     WindowBowling windowBowling;
-    windowBowling.changeCurrentRank(playerList);
     windowBowling.changeCurrentPlayer(playerList[0]);
+    windowBowling.changeCurrentRound(currentRound);
+    windowBowling.changeCurrentThrow(currentThrow);
+    windowBowling.changeCurrentPoints(0);
+    windowBowling.changeCurrentRank(playerList);
+    
     CameraFeed cameraFeed;
     
     while (phasePlay)
@@ -77,11 +86,9 @@ void GameManager::playGame(vector<string> playerList)
         
         for (auto pin : cameraFeed.start())
         {
-            cout << pin << "; ";
             windowBowling.showPinUp(pin);
-            windowBowling.updateWindow();
+            
         }
-        cout << endl;
         
         int keyPressed = waitKey(10);
         switch (keyPressed)
@@ -92,18 +99,72 @@ void GameManager::playGame(vector<string> playerList)
             case 99:    // c
                 exitGame();
                 break;
-            case 13:    // enter
-                cout<<"Enter Game"<<endl;
+            case 110:   // n
+                phasePlay = nextThrowPossible();
                 break;
         }
+        
         if (!phasePlay) break;
+        
+        windowBowling.changeCurrentThrow(currentThrow);
+        windowBowling.changeCurrentPlayer(playerList[ (currentPlayer - 1) % numberOfPlayers ]);
+        windowBowling.changeCurrentRound(currentRound);
+        windowBowling.updateWindow();
     }
     
+    if (currentRound > ROUNDS_TO_PLAY) restartGame();
     
     destroyWindow(WINDOW_BOWLING);
     destroyWindow(WINDOW_CAMERA);
     
-    cout << "PLAY" << endl;
+    if (currentRound > ROUNDS_TO_PLAY) exitGame();
+}
+
+
+bool GameManager::nextThrowPossible()
+{
+    
+    // increase throws if numberOf throws is not reached yet
+    if (currentThrow < numberOfThrows)
+    {
+        currentThrow++;
+    }
+    // if numberOf throws is reached set it backa and switch to the next player
+    else
+    {
+        currentThrow = 1;   // reset throws
+        currentPlayer++;
+        
+        // if the first player is active increase the round count
+        if ( (currentPlayer - 1) % numberOfPlayers == 0)
+        {
+            currentRound++;
+        }
+        
+        if (currentRound > MAX_NR_OF_ROUNDS)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+void GameManager::restartGame()
+{
+    WindowAlert windowAlert(ALERT_GAME_FINISHED);
+    
+    int keyPressed = waitKey(0);
+    switch (keyPressed)
+    {
+        case 121:    // y
+            phaseInitialize = false;
+            phasePlay = false;
+            break;
+        case 110:   // n
+            break;
+    }
+    destroyWindow(ALERT_GAME_FINISHED);
 }
 
 

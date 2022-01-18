@@ -17,7 +17,7 @@ const int MAX_NR_OF_PLAYERS = 3;
 const int MIN_NR_OF_PLAYERS = 1;
 const int MAX_NR_OF_ROUNDS = 2;
 const int MIN_NR_OF_ROUNDS = 1;
-const int ROUNDS_TO_PLAY = 1;
+const int ROUNDS_TO_PLAY = 2;
 
 
 // ---------------------------------- Strings
@@ -32,6 +32,7 @@ const string LBL_ROUNDS = "Nr of Rounds:";
 const string BTN_CANCEL = "Cancel";
 const string BTN_PLAY = "Play";
 const string ALERT_EXIT = "Do you realy want to exit the game?";
+const string ALERT_GAME_FINISHED = "Game finished!";
 const string PLAYER_ONE = "P_1";
 const string PLAYER_TWO = "P_2";
 const string PLAYER_THREE = "P_3";
@@ -39,8 +40,10 @@ const string PLAYER_THREE = "P_3";
 
 // Window Bowlilng
 const string CURRENT_PLAYER = "Current Player:";
+const string ROUND = "Round:";
 const string THOWS = "Throw:";
 const string POINTS = "Points:";
+const string NEXT = "Pess key 'N' for next throw.";
 
 
 // ---------------------------------- Colors

@@ -35,8 +35,10 @@ private:
     
     
     void initGame();
+    void playGame();
     vector<string> initPlayerList();
-    void playGame(vector<string> playerList);
+    bool nextThrowPossible();
+    void restartGame();
     void exitGame();
     
 public:

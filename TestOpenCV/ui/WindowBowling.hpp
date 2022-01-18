@@ -56,6 +56,7 @@ public:
     ~WindowBowling();
     
     void changeCurrentPlayer(string currPlayer);
+    void changeCurrentRound(int currRound);
     void changeCurrentThrow(int currThrow);
     void changeCurrentPoints(int currPoints);
     void changeCurrentRank(vector<string> playerRank);

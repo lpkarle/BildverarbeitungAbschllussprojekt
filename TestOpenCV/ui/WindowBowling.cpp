@@ -55,23 +55,34 @@ void WindowBowling::showPinUp(int pinNr)
     circle(window, pin, PIN_COVER_RADIUS, RED, FILLED);                                               // cover
 }
 
+
 void WindowBowling::changeCurrentPlayer(string currPlayer)
 {
-    rectangle(window, Point(250, 0), Point(305, 50), BLUE, FILLED);
+    rectangle(window, Point(255, 0), Point(512, 50), BLUE, FILLED);
     putText(window, currPlayer, Point(260, 38), FONT_HERSHEY_COMPLEX, 1.2, WHITE);
 }
 
-void WindowBowling::changeCurrentThrow(int currThrow)
+
+void WindowBowling::changeCurrentRound(int currRound)
 {
     rectangle(window, Point(100, 550), Point(200, 590), WHITE, FILLED);
-    putText(window, to_string(currThrow), Point(100, 580), FONT_HERSHEY_COMPLEX, 0.8, GREY_DARK);
+    putText(window, to_string(currRound) + "/" + to_string(MAX_NR_OF_ROUNDS), Point(105, 580), FONT_HERSHEY_COMPLEX, 0.8, GREY_DARK);
 }
+
+
+void WindowBowling::changeCurrentThrow(int currThrow)
+{
+    rectangle(window, Point(100, 600), Point(200, 640), WHITE, FILLED);
+    putText(window, to_string(currThrow), Point(105, 630), FONT_HERSHEY_COMPLEX, 0.8, GREY_DARK);
+}
+
 
 void WindowBowling::changeCurrentPoints(int currPoints)
 {
-    rectangle(window, Point(100, 600), Point(200, 640), WHITE, FILLED);
-    putText(window, to_string(currPoints), Point(100, 630), FONT_HERSHEY_COMPLEX, 0.8, GREY_DARK);
+    rectangle(window, Point(100, 650), Point(200, 690), WHITE, FILLED);
+    putText(window, to_string(currPoints), Point(105, 680), FONT_HERSHEY_COMPLEX, 0.8, GREY_DARK);
 }
+
 
 void WindowBowling::changeCurrentRank(vector<string> playerRank)
 {
@@ -104,10 +115,12 @@ void WindowBowling::placeStaticElements()
     line(window, Point(10, 540), Point(502, 540), GREY);
     line(window, Point(256, 550), Point(256, 690), GREY);
     
-    putText(window, THOWS, Point(10, 580), FONT_HERSHEY_DUPLEX, 0.8, GREY_DARK);
-    putText(window, POINTS, Point(10, 630), FONT_HERSHEY_DUPLEX, 0.8, GREY_DARK);
+    putText(window, ROUND, Point(10, 580), FONT_HERSHEY_DUPLEX, 0.8, GREY_DARK);
+    putText(window, THOWS, Point(10, 630), FONT_HERSHEY_DUPLEX, 0.8, GREY_DARK);
+    putText(window, POINTS, Point(10, 680), FONT_HERSHEY_DUPLEX, 0.8, GREY_DARK);
     
-    rectangle(window, Point(10, 700), Point(150, 730), BLUE, FILLED);
+    rectangle(window, Point(10, 700), Point(502, 740), BLUE, 2);
+    putText(window, NEXT, Point(60, 730), FONT_HERSHEY_DUPLEX, 0.8, BLUE);
 }
 
 
