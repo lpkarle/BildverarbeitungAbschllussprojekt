@@ -59,7 +59,7 @@ public:
     void changeCurrentRound(int currRound);
     void changeCurrentThrow(int currThrow);
     void changeCurrentPoints(int currPoints);
-    void changeCurrentRank(vector<string> playerRank);
+    void changeCurrentRank(vector<pair<string, int>> playerRank);
     void showPinUp(int pinNr);
     void allPinsDown();
     void updateWindow();

@@ -84,24 +84,24 @@ void WindowBowling::changeCurrentPoints(int currPoints)
 }
 
 
-void WindowBowling::changeCurrentRank(vector<string> playerRank)
+void WindowBowling::changeCurrentRank(vector<pair<string, int>> playerRank)
 {
     rectangle(window, Point(295, 550), Point(500, 690), WHITE, FILLED);
     
     // no check needed because one player is minimum
-    putText(window, "1.", Point(266, 580), FONT_HERSHEY_DUPLEX, 0.8, GREY_DARK);
-    putText(window, playerRank[0], Point(300, 580), FONT_HERSHEY_COMPLEX, 0.8, GREY_DARK);
+    string firstPlace = "1. " + playerRank[0].first + " (" + to_string(playerRank[0].second) + ")";
+    putText(window, firstPlace, Point(266, 580), FONT_HERSHEY_DUPLEX, 0.8, GREY_DARK);
     
     if (playerRank.size() >= 2)
     {
-        putText(window, "2.", Point(266, 630), FONT_HERSHEY_DUPLEX, 0.8, GREY_DARK);
-        putText(window, playerRank[1], Point(300, 630), FONT_HERSHEY_COMPLEX, 0.8, GREY_DARK);
+        string secondPlace = "2. " + playerRank[1].first + " (" + to_string(playerRank[1].second) + ")";
+        putText(window, secondPlace, Point(266, 630), FONT_HERSHEY_DUPLEX, 0.8, GREY_DARK);
     }
     
     if (playerRank.size() == 3)
     {
-        putText(window, "3.", Point(266, 680), FONT_HERSHEY_DUPLEX, 0.8, GREY_DARK);
-        putText(window, playerRank[2], Point(300, 680), FONT_HERSHEY_COMPLEX, 0.8, GREY_DARK);
+        string thirdPlace = "3. " + playerRank[2].first + " (" + to_string(playerRank[2].second) + ")";
+        putText(window, thirdPlace, Point(266, 680), FONT_HERSHEY_DUPLEX, 0.8, GREY_DARK);
     }
 }
 

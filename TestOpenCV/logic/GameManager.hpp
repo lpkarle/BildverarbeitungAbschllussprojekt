@@ -25,7 +25,9 @@ private:
     int numberOfThrows;
     int currentPlayer;
     int currentThrow;
+    int currentPoints;
     int currentRound;
+    vector<pair<string, int>> playersWithPoints;
     
     bool phaseInitialize;
     bool phasePlay;
@@ -36,7 +38,8 @@ private:
     
     void initGame();
     void playGame();
-    vector<string> initPlayerList();
+    void initPlayerList();
+    void sortPlayerList();
     bool nextThrowPossible();
     void restartGame();
     void exitGame();

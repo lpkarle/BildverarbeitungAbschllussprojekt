@@ -50,14 +50,30 @@ void GameManager::initGame()
 }
 
 
-vector<string> GameManager::initPlayerList()
+void GameManager::initPlayerList()
 {
-    vector<string> playerList;
-    
-    if (numberOfPlayers >= 1) { playerList.insert(playerList.end(), PLAYER_ONE); }
-    if (numberOfPlayers >= 2) { playerList.insert(playerList.end(), PLAYER_TWO); }
-    if (numberOfPlayers >= 3) { playerList.insert(playerList.end(), PLAYER_THREE); }
-    return playerList;
+    if (numberOfPlayers >= 1) { playersWithPoints.emplace_back(PLAYER_ONE, 0); }
+    if (numberOfPlayers >= 2) { playersWithPoints.emplace_back(PLAYER_TWO, 0); }
+    if (numberOfPlayers >= 3) { playersWithPoints.emplace_back(PLAYER_THREE, 0); }
+}
+
+
+void GameManager::sortPlayerList()
+{
+    for (int i = 0; i < (int) playersWithPoints.size(); i++)
+    {
+        auto currListEl = playersWithPoints[i]; // compare the first element
+        
+        for (int j = i; j < (int) playersWithPoints.size(); j++)
+        {
+            if (playersWithPoints[j].second > currListEl.second)
+            {
+                auto currentMin = playersWithPoints[j];
+                playersWithPoints[i] = currentMin;
+                playersWithPoints[j] = currListEl;
+            }
+        }
+    }
 }
 
 
@@ -69,14 +85,16 @@ void GameManager::playGame()
     currentRound = 1;
     currentPlayer = 1;
     currentThrow = 1;
-    auto playerList = initPlayerList();
+    currentPoints = 0;
+    initPlayerList();
     
     WindowBowling windowBowling;
-    windowBowling.changeCurrentPlayer(playerList[0]);
+    windowBowling.changeCurrentPlayer(playersWithPoints[0].first);
     windowBowling.changeCurrentRound(currentRound);
     windowBowling.changeCurrentThrow(currentThrow);
-    windowBowling.changeCurrentPoints(0);
-    windowBowling.changeCurrentRank(playerList);
+    windowBowling.changeCurrentPoints(currentPoints);
+    sortPlayerList();
+    windowBowling.changeCurrentRank(playersWithPoints);
     
     CameraFeed cameraFeed;
     
@@ -87,7 +105,6 @@ void GameManager::playGame()
         for (auto pin : cameraFeed.start())
         {
             windowBowling.showPinUp(pin);
-            
         }
         
         int keyPressed = waitKey(10);
@@ -107,8 +124,10 @@ void GameManager::playGame()
         if (!phasePlay) break;
         
         windowBowling.changeCurrentThrow(currentThrow);
-        windowBowling.changeCurrentPlayer(playerList[ (currentPlayer - 1) % numberOfPlayers ]);
+        windowBowling.changeCurrentPlayer(playersWithPoints[ (currentPlayer - 1) % numberOfPlayers ].first);
         windowBowling.changeCurrentRound(currentRound);
+        sortPlayerList();
+        windowBowling.changeCurrentRank(playersWithPoints);
         windowBowling.updateWindow();
     }
     
