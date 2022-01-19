@@ -97,23 +97,23 @@ void GameManager::playGame()
     windowBowling.changeCurrentRank(playersWithPoints);
     
     CameraFeed cameraFeed;
+    vector<int> pinsUp;
     
     while (phasePlay)
     {
         windowBowling.allPinsDown();
+        pinsUp = cameraFeed.start();
         
-        for (auto pin : cameraFeed.start())
+        for (auto pin : pinsUp)
         {
             windowBowling.showPinUp(pin);
+            windowBowling.changeCurrentPoints(9 - (int) pinsUp.size());
         }
         
         int keyPressed = waitKey(10);
         switch (keyPressed)
         {
             case 27:    // esc
-                exitGame();
-                break;
-            case 99:    // c
                 exitGame();
                 break;
             case 110:   // n

@@ -29,8 +29,10 @@ const string WINDOW_ALERT = "Window Alert";
 const string LBL_WELCOME = "Welcome to OpenCV-Bowling";
 const string LBL_PLAYERS = "Nr of Players:";
 const string LBL_ROUNDS = "Nr of Rounds:";
-const string BTN_CANCEL = "Cancel";
-const string BTN_PLAY = "Play";
+const string BTN_CANCEL = "Cancel 'esc'";
+const string BTN_PLAY = "Play 'return'";
+const string BTN_YES = "Yes 'y'";
+const string BTN_NO = "No 'n'";
 const string ALERT_EXIT = "Do you realy want to exit the game?";
 const string ALERT_GAME_FINISHED = "Game finished!";
 const string PLAYER_ONE = "P_1";
@@ -43,7 +45,7 @@ const string CURRENT_PLAYER = "Current Player:";
 const string ROUND = "Round:";
 const string THOWS = "Throw:";
 const string POINTS = "Points:";
-const string NEXT = "Pess key 'N' for next throw.";
+const string BTN_NEXT = "Next 'n'";
 
 
 // ---------------------------------- Colors

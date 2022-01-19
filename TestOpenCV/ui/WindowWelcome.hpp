@@ -21,8 +21,8 @@ const Point locationBtnMinusNrOfPlayers[ 2 ] = { Point(290, 80), Point(330, 105)
 const Point locationBtnPlusNrOfPlayers[ 2 ]  = { Point(385, 80), Point(425, 105) };
 const Point locationBtnMinusNrOfRounds[ 2 ] = { Point(290, 130), Point(330, 155) };
 const Point locationBtnPlusNrOfRounds[ 2 ]  = { Point(385, 130), Point(425, 155) };
-const Point locationBtnCancel[ 2 ] = { Point(10, 200), Point(250, 240) };
-const Point locationBtnPlay[ 2 ]   = { Point(272, 200), Point(502, 240) };
+const Point locationBtnCancel[ 2 ] = { Point(10, 205), Point(250, 245) };
+const Point locationBtnPlay[ 2 ]   = { Point(262, 205), Point(502, 245) };
 
 
 class WindowWelcome

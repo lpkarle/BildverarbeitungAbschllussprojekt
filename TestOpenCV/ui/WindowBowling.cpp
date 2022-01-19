@@ -119,8 +119,11 @@ void WindowBowling::placeStaticElements()
     putText(window, THOWS, Point(10, 630), FONT_HERSHEY_DUPLEX, 0.8, GREY_DARK);
     putText(window, POINTS, Point(10, 680), FONT_HERSHEY_DUPLEX, 0.8, GREY_DARK);
     
-    rectangle(window, Point(10, 700), Point(502, 740), BLUE, 2);
-    putText(window, NEXT, Point(60, 730), FONT_HERSHEY_DUPLEX, 0.8, BLUE);
+    rectangle(window, Point(10, 700), Point(250, 740), BLUE, 1);
+    putText(window, BTN_CANCEL, Point(50, 730), FONT_HERSHEY_DUPLEX, 0.8, BLUE);
+    
+    rectangle(window, Point(272, 700), Point(502, 740), BLUE, FILLED);
+    putText(window, BTN_NEXT, Point(340, 730), FONT_HERSHEY_DUPLEX, 0.8, WHITE);
 }
 
 

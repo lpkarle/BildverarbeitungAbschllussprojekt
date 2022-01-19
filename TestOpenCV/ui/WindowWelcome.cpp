@@ -22,7 +22,7 @@ WindowWelcome::~WindowWelcome(void) {}
 
 void WindowWelcome::placeStaticElements()
 {
-    window = Mat(260, 512, CV_8UC3, WHITE);
+    window = Mat(255, 512, CV_8UC3, WHITE);
     
     rectangle(window, Point(0, 0), Point(512, 50), BLUE, FILLED);
     putText(window, LBL_WELCOME, Point(10, 35), FONT_HERSHEY_DUPLEX, 1, WHITE);
@@ -46,9 +46,9 @@ void WindowWelcome::placeStaticElements()
     putText(window, "+", Point(393, 152), FONT_HERSHEY_DUPLEX, 1, GREY_DARK);
     
     rectangle(window, locationBtnCancel[0], locationBtnCancel[1], BLUE);
-    putText(window, BTN_CANCEL, Point(75, 230), FONT_HERSHEY_DUPLEX, 1, BLUE);
+    putText(window, BTN_CANCEL, Point(50, 232), FONT_HERSHEY_DUPLEX, 0.8, BLUE);
     rectangle(window, locationBtnPlay[0], locationBtnPlay[1], BLUE, FILLED);
-    putText(window, BTN_PLAY, Point(350, 230), FONT_HERSHEY_DUPLEX, 1, WHITE);
+    putText(window, BTN_PLAY, Point(300, 232), FONT_HERSHEY_DUPLEX, 0.8, WHITE);
 }
 
 void WindowWelcome::changePlayerAmount()
