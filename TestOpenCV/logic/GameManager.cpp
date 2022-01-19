@@ -184,6 +184,7 @@ bool GameManager::checkNextRound()
 void GameManager::restartGame()
 {
     WindowAlert windowAlert(ALERT_GAME_FINISHED);
+    windowAlert.showResult(playersWithPoints);
     
     int keyPressed = waitKey(0);
     switch (keyPressed)

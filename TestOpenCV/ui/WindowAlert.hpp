@@ -36,6 +36,7 @@ public:
     WindowAlert(string msg);
     ~WindowAlert();
     
+    void showResult(vector<pair<string, int>> playerRank);
     void updateWindow();
 };
 
