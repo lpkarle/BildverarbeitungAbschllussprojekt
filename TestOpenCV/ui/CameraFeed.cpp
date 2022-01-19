@@ -25,14 +25,13 @@ CameraFeed::~CameraFeed()
 
 vector<int> CameraFeed::start()
 {
-    Mat frame, frameHSV, frameDilation;
+    Mat frame, frameDilation;
     vector<int> pins;
     
     cameraCapture >> frame;
     if(frame.empty()) return pins;
         
     auto images = preprocessImage(frame);
-    frameHSV = images[2];
     frameDilation = images[5];
         
     // get the shapes/contours from the eroded image
@@ -40,8 +39,8 @@ vector<int> CameraFeed::start()
     vector<vector<Point>> bottleContours = getBottleContours(getContours(frameDilation));
                 
     // check the bottle location and mark them in standard and hsv
-    bottleLocation(frameHSV);
-    pins = pinsUp(bottleContours, frameHSV);
+    bottleLocation(images[0]);
+    pins = pinsUp(bottleContours, images[0]);
     
     return pins;   
 }

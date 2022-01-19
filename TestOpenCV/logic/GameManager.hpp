@@ -22,7 +22,7 @@ class GameManager
 {
 private:
     int numberOfPlayers;
-    int numberOfThrows;
+    int numberOfRounds;
     int currentPlayer;
     int currentThrow;
     int currentPoints;
@@ -42,6 +42,8 @@ private:
     void playGame();
     void initPlayerList();
     void sortPlayerList();
+    static bool sortBySec(const pair<string,int> &a,
+                   const pair<string,int> &b);
     
     void nextThrow();
     void nextPlayer();

@@ -24,18 +24,18 @@ const Point locationBtnNextRound[ 2 ]  = { Point(385, 80), Point(425, 105) };
 
 const vector<Point> pinAreas =  // 1 to 9
 {
-    Point(200, 390),
-    Point(120, 310),
-    Point(280, 310),
-    Point( 40, 228),
-    Point(200, 228),
-    Point(355, 228),
-    Point(120, 146),
-    Point(280, 146),
-    Point(200,  65)
+    Point(175, 365),
+    Point(95 , 285),
+    Point(255, 285),
+    Point( 15, 203),
+    Point(175, 203),
+    Point(330, 203),
+    Point( 95, 121),
+    Point(255, 121),
+    Point(175,  40)
 };
 
-const int pinBoxWidth = 75, pinBoxHeight = 75;
+const int pinBoxWidth = 100, pinBoxHeight = 100;
 
 
 class CameraFeed

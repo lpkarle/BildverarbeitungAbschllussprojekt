@@ -17,7 +17,7 @@ const int MAX_NR_OF_PLAYERS = 3;
 const int MIN_NR_OF_PLAYERS = 1;
 const int MAX_NR_OF_ROUNDS = 3;
 const int MIN_NR_OF_ROUNDS = 1;
-const int ROUNDS_TO_PLAY = 2;
+const int NR_OF_THROWS = 2;
 
 
 // ---------------------------------- Strings

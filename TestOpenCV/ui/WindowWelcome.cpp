@@ -87,41 +87,38 @@ int WindowWelcome::onMouse(int event, int x, int y)
         if (x >= locationBtnMinusNrOfPlayers[0].x && x <= locationBtnMinusNrOfPlayers[1].x &&
             y >= locationBtnMinusNrOfPlayers[0].y && y <= locationBtnMinusNrOfPlayers[1].y)
         {
-            cout << "BUTTON MINUS PLAYER" << endl;
-            nrOfPlayers--;
-            changePlayerAmount();
+            if (nrOfPlayers > MIN_NR_OF_PLAYERS)
+            {
+                nrOfPlayers--;
+                changePlayerAmount();
+            }
         }
         else if (x >= locationBtnPlusNrOfPlayers[0].x && x <= locationBtnPlusNrOfPlayers[1].x &&
                  y >= locationBtnPlusNrOfPlayers[0].y && y <= locationBtnPlusNrOfPlayers[1].y)
         {
-            cout << "BUTTON PLUS PLAYER" << endl;
-            nrOfPlayers++;
-            changePlayerAmount();
+            if (nrOfPlayers < MAX_NR_OF_PLAYERS)
+            {
+                nrOfPlayers++;
+                changePlayerAmount();
+            }
         }
         else if (x >= locationBtnMinusNrOfRounds[0].x && x <= locationBtnMinusNrOfRounds[1].x &&
                  y >= locationBtnMinusNrOfRounds[0].y && y <= locationBtnMinusNrOfRounds[1].y)
         {
-            cout << "BUTTON MINUS ROUNDS" << endl;
-            nrOfRounds--;
-            changeThrowRounds();
+            if (nrOfRounds > MIN_NR_OF_ROUNDS)
+            {
+                nrOfRounds--;
+                changeThrowRounds();
+            }
         }
         else if (x >= locationBtnPlusNrOfRounds[0].x && x <= locationBtnPlusNrOfRounds[1].x &&
                  y >= locationBtnPlusNrOfRounds[0].y && y <= locationBtnPlusNrOfRounds[1].y)
         {
-            cout << "BUTTON PLUS ROUNDS" << endl;
-            nrOfRounds++;
-            changeThrowRounds();
-        }
-        else if (x >= locationBtnCancel[0].x && x <= locationBtnCancel[1].x &&
-            y >= locationBtnCancel[0].y && y <= locationBtnCancel[1].y)
-        {
-            cout << "BUTTON CANCEL" << endl;
-        }
-        else if (x >= locationBtnPlay[0].x && x <= locationBtnPlay[1].x &&
-                 y >= locationBtnPlay[0].y && y <= locationBtnPlay[1].y)
-        {
-            cout << "BUTTON PLAY" << endl;
-            playClicked = true;
+            if (nrOfRounds < MAX_NR_OF_ROUNDS)
+            {
+                nrOfRounds++;
+                changeThrowRounds();
+            }
         }
     }
     return 1;

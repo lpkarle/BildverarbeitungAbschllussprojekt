@@ -63,17 +63,17 @@ void WindowBowling::changeCurrentPlayer(string currPlayer)
 }
 
 
-void WindowBowling::changeCurrentRound(int currRound)
+void WindowBowling::changeCurrentRound(int currRound, int numberOfRounds)
 {
     rectangle(window, Point(100, 550), Point(200, 590), WHITE, FILLED);
-    putText(window, to_string(currRound) + "/" + to_string(ROUNDS_TO_PLAY), Point(105, 580), FONT_HERSHEY_COMPLEX, 0.8, GREY_DARK);
+    putText(window, to_string(currRound) + "/" + to_string(numberOfRounds), Point(105, 580), FONT_HERSHEY_COMPLEX, 0.8, GREY_DARK);
 }
 
 
-void WindowBowling::changeCurrentThrow(int currThrow, int numberOfThrows)
+void WindowBowling::changeCurrentThrow(int currThrow)
 {
     rectangle(window, Point(100, 600), Point(200, 640), WHITE, FILLED);
-    putText(window, to_string(currThrow) + "/" + to_string(numberOfThrows), Point(105, 630), FONT_HERSHEY_COMPLEX, 0.8, GREY_DARK);
+    putText(window, to_string(currThrow) + "/" + to_string(NR_OF_THROWS), Point(105, 630), FONT_HERSHEY_COMPLEX, 0.8, GREY_DARK);
 }
 
 

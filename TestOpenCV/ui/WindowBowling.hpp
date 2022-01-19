@@ -56,8 +56,8 @@ public:
     ~WindowBowling();
     
     void changeCurrentPlayer(string currPlayer);
-    void changeCurrentRound(int currRound);
-    void changeCurrentThrow(int currThrow, int numberOfThrows);
+    void changeCurrentRound(int currRound, int numberOfRounds);
+    void changeCurrentThrow(int currThrow);
     void changeCurrentPoints(int currPoints);
     void changeCurrentRank(vector<pair<string, int>> playerRank);
     void showPinUp(int pinNr);

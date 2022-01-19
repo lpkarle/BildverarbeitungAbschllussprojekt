@@ -30,15 +30,11 @@ void GameManager::initGame()
             case 27:    // esc
                 exitGame();
                 break;
-            case 110:   // c
-                exitGame();
-                break;
             case 13:    // enter
-                cout<<"Enter Game"<<endl;
                 phaseInitialize = false;
                 phasePlay = true;
                 numberOfPlayers = windowWelcome.getNrOfPlayers();
-                numberOfThrows = windowWelcome.getNrOfRounds();
+                numberOfRounds = windowWelcome.getNrOfRounds();
                 break;
         }
         if (!phaseInitialize) break;
@@ -61,41 +57,36 @@ void GameManager::initPlayerList()
 
 void GameManager::sortPlayerList()
 {
-    for (int i = 0; i < (int) playersWithPoints.size(); i++)
-    {
-        auto currListEl = playersWithPoints[i]; // compare the first element
-        
-        for (int j = i; j < (int) playersWithPoints.size(); j++)
-        {
-            if (playersWithPoints[j].second > currListEl.second)
-            {
-                auto currentMin = playersWithPoints[j];
-                playersWithPoints[i] = currentMin;
-                playersWithPoints[j] = currListEl;
-            }
-        }
-    }
+    sort(playersWithPoints.begin(), playersWithPoints.end(), sortBySec);
+}
+
+
+bool GameManager::sortBySec(const pair<string,int> &a, const pair<string,int> &b)
+{
+    return (a.second > b.second);
 }
 
 
 void GameManager::playGame()
 {
-    destroyWindow(WINDOW_WELCOME);
-    
     phasePlay = true;
     currentRound = 1;
+    
     firstRound = true;
+    
+    
     currentPlayer = 1;
     currentThrow = 1;
     currentPoints = 0;
+    
+    
     initPlayerList();
     
     WindowBowling windowBowling;
     windowBowling.changeCurrentPlayer(playersWithPoints[0].first);
-    windowBowling.changeCurrentRound(currentRound);
-    windowBowling.changeCurrentThrow(currentThrow, numberOfThrows);
+    windowBowling.changeCurrentRound(currentRound, numberOfRounds);
+    windowBowling.changeCurrentThrow(currentThrow);
     windowBowling.changeCurrentPoints(currentPoints);
-    sortPlayerList();
     windowBowling.changeCurrentRank(playersWithPoints);
     
     CameraFeed cameraFeed;
@@ -108,10 +99,12 @@ void GameManager::playGame()
         
         for (auto pin : pinsUp)
         {
-            currentPoints = 9 - (int) pinsUp.size();
+            
             windowBowling.showPinUp(pin);
-            windowBowling.changeCurrentPoints(currentPoints);
+            
         }
+        currentPoints = 9 - (int) pinsUp.size();
+        windowBowling.changeCurrentPoints(currentPoints);
         
         int keyPressed = waitKey(10);
         switch (keyPressed)
@@ -122,14 +115,12 @@ void GameManager::playGame()
             case 110:   // n
                 nextThrow();
                 nextPlayer();
-               
                 break;
         }
         
-        windowBowling.changeCurrentThrow(currentThrow, numberOfThrows);
+        windowBowling.changeCurrentThrow(currentThrow);
         windowBowling.changeCurrentPlayer(playersWithPoints[ (currentPlayer - 1) % numberOfPlayers ].first);
-        windowBowling.changeCurrentRound(currentRound);
-        sortPlayerList();
+        windowBowling.changeCurrentRound(currentRound, numberOfRounds);
         windowBowling.changeCurrentRank(playersWithPoints);
         windowBowling.updateWindow();
 
@@ -139,44 +130,46 @@ void GameManager::playGame()
     destroyWindow(WINDOW_BOWLING);
     destroyWindow(WINDOW_CAMERA);
     
-    if (currentRound >= ROUNDS_TO_PLAY) restartGame();
+    restartGame();
 }
 
 
 void GameManager::nextThrow()
 {
-    if(currentThrow <= numberOfThrows) { currentThrow++; }
-    
-    auto playerIndex = (currentPlayer - 1) % numberOfPlayers;
-    playersWithPoints[ playerIndex ].second += currentPoints;
-    currentPoints = 0;
+    if (currentThrow <= NR_OF_THROWS) { currentThrow++; }
 }
 
 
 void GameManager::nextPlayer()
 {
-    if (currentThrow > numberOfThrows)
+    if (currentThrow > NR_OF_THROWS)
     {
-        currentPlayer++;
-        currentThrow = 1;
-        
         phasePlay = checkNextRound();
+        
+        auto playerIndex = (currentPlayer - 1) % numberOfPlayers;
+        playersWithPoints[ playerIndex ].second += currentPoints;
+        currentPoints = 0;
+        
+        if (phasePlay)
+        {
+            currentPlayer++;
+            currentThrow = 1;
+        }
     }
 }
 
 
 bool GameManager::checkNextRound()
 {
-    if ( (currentPlayer - 1) % numberOfPlayers == 0)
-    {
-        currentRound++;
-    }
-                
-    if (currentRound > ROUNDS_TO_PLAY)
+    if (currentRound == numberOfRounds && currentPlayer % numberOfPlayers == 0)
     {
         return false;
     }
     
+    if (currentPlayer % numberOfPlayers == 0)
+    {
+        currentRound++;
+    }
     return true;
 }
 
@@ -184,21 +177,22 @@ bool GameManager::checkNextRound()
 void GameManager::restartGame()
 {
     WindowAlert windowAlert(ALERT_GAME_FINISHED);
+    sortPlayerList();
     windowAlert.showResult(playersWithPoints);
     
     int keyPressed = waitKey(0);
     switch (keyPressed)
     {
         case 121:   // y
+            destroyWindow(WINDOW_ALERT);
             initGame();
             break;
         case 110:   // n
+            destroyWindow(WINDOW_ALERT);
             break;
     }
-    
     phaseInitialize = false;
     phasePlay = false;
-    destroyWindow(ALERT_GAME_FINISHED);
 }
 
 
