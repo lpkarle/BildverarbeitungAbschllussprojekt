@@ -57,7 +57,7 @@ public:
     
     void changeCurrentPlayer(string currPlayer);
     void changeCurrentRound(int currRound);
-    void changeCurrentThrow(int currThrow);
+    void changeCurrentThrow(int currThrow, int numberOfThrows);
     void changeCurrentPoints(int currPoints);
     void changeCurrentRank(vector<pair<string, int>> playerRank);
     void showPinUp(int pinNr);

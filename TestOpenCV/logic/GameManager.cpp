@@ -52,6 +52,7 @@ void GameManager::initGame()
 
 void GameManager::initPlayerList()
 {
+    playersWithPoints.clear();
     if (numberOfPlayers >= 1) { playersWithPoints.emplace_back(PLAYER_ONE, 0); }
     if (numberOfPlayers >= 2) { playersWithPoints.emplace_back(PLAYER_TWO, 0); }
     if (numberOfPlayers >= 3) { playersWithPoints.emplace_back(PLAYER_THREE, 0); }
@@ -92,7 +93,7 @@ void GameManager::playGame()
     WindowBowling windowBowling;
     windowBowling.changeCurrentPlayer(playersWithPoints[0].first);
     windowBowling.changeCurrentRound(currentRound);
-    windowBowling.changeCurrentThrow(currentThrow);
+    windowBowling.changeCurrentThrow(currentThrow, numberOfThrows);
     windowBowling.changeCurrentPoints(currentPoints);
     sortPlayerList();
     windowBowling.changeCurrentRank(playersWithPoints);
@@ -121,11 +122,11 @@ void GameManager::playGame()
             case 110:   // n
                 nextThrow();
                 nextPlayer();
-                phasePlay = checkNextRound();
+               
                 break;
         }
         
-        windowBowling.changeCurrentThrow(currentThrow);
+        windowBowling.changeCurrentThrow(currentThrow, numberOfThrows);
         windowBowling.changeCurrentPlayer(playersWithPoints[ (currentPlayer - 1) % numberOfPlayers ].first);
         windowBowling.changeCurrentRound(currentRound);
         sortPlayerList();
@@ -135,10 +136,10 @@ void GameManager::playGame()
         if (!phasePlay) break;
     }
     
-    if (currentRound == ROUNDS_TO_PLAY) restartGame();
-    
     destroyWindow(WINDOW_BOWLING);
     destroyWindow(WINDOW_CAMERA);
+    
+    if (currentRound >= ROUNDS_TO_PLAY) restartGame();
 }
 
 
@@ -158,37 +159,22 @@ void GameManager::nextPlayer()
     {
         currentPlayer++;
         currentThrow = 1;
+        
+        phasePlay = checkNextRound();
     }
 }
 
 
 bool GameManager::checkNextRound()
 {
-    // if the first player is active and first round -> pass
-    if ((currentPlayer - 1) % numberOfPlayers == 0 && firstRound)
-    {
-        firstRound = false;
-        return true;
-    }
-    
-    // if the first player is active and smaller than the max rounds -> increase the round counter
-    if ((currentPlayer - 1) % numberOfPlayers == 0 && currentRound < MAX_NR_OF_ROUNDS)
+    if ( (currentPlayer - 1) % numberOfPlayers == 0)
     {
         currentRound++;
-        return true;
     }
-    
-    // if the last round is reached and its the turn of player one -> end
-    if (lastRound && (currentPlayer - 1) % numberOfPlayers == 0)
+                
+    if (currentRound > ROUNDS_TO_PLAY)
     {
         return false;
-    }
-    
-    // last round reached
-    if ((currentPlayer - 1) % numberOfPlayers == 0 && currentRound == MAX_NR_OF_ROUNDS)
-    {
-        lastRound = true;
-        return true;
     }
     
     return true;
@@ -202,13 +188,15 @@ void GameManager::restartGame()
     int keyPressed = waitKey(0);
     switch (keyPressed)
     {
-        case 121:    // y
-            phaseInitialize = false;
-            phasePlay = false;
+        case 121:   // y
+            initGame();
             break;
         case 110:   // n
             break;
     }
+    
+    phaseInitialize = false;
+    phasePlay = false;
     destroyWindow(ALERT_GAME_FINISHED);
 }
 

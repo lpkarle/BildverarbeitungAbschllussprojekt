@@ -25,8 +25,8 @@ void WindowBowling::initPins()
     
     for (auto pin : PIN_LOCATIONS)
     {
-        circle(window, {pin.x + SHADOW_OFFSET, pin.y + SHADOW_OFFSET}, PIN_SHADOW_RADIUS, GREY, FILLED);    // shadow
-        circle(window, pin, PIN_RADIUS, WHITE, FILLED);                                                  // pin
+        circle(window, {pin.x + SHADOW_OFFSET, pin.y + SHADOW_OFFSET}, PIN_SHADOW_RADIUS, GREY, FILLED);  // shadow
+        circle(window, pin, PIN_RADIUS, WHITE, FILLED);                                                   // pin
         circle(window, pin, PIN_COVER_RADIUS, RED, FILLED);                                               // cover
         putText(window, to_string(pinNr), {pin.x + OFFSET_TEXT_X, pin.y + OFFSET_TEXT_Y }, FONT_HERSHEY_COMPLEX, FONT_SCALE, GREY_DARK);
         pinNr++;
@@ -66,14 +66,14 @@ void WindowBowling::changeCurrentPlayer(string currPlayer)
 void WindowBowling::changeCurrentRound(int currRound)
 {
     rectangle(window, Point(100, 550), Point(200, 590), WHITE, FILLED);
-    putText(window, to_string(currRound) + "/" + to_string(MAX_NR_OF_ROUNDS), Point(105, 580), FONT_HERSHEY_COMPLEX, 0.8, GREY_DARK);
+    putText(window, to_string(currRound) + "/" + to_string(ROUNDS_TO_PLAY), Point(105, 580), FONT_HERSHEY_COMPLEX, 0.8, GREY_DARK);
 }
 
 
-void WindowBowling::changeCurrentThrow(int currThrow)
+void WindowBowling::changeCurrentThrow(int currThrow, int numberOfThrows)
 {
     rectangle(window, Point(100, 600), Point(200, 640), WHITE, FILLED);
-    putText(window, to_string(currThrow), Point(105, 630), FONT_HERSHEY_COMPLEX, 0.8, GREY_DARK);
+    putText(window, to_string(currThrow) + "/" + to_string(numberOfThrows), Point(105, 630), FONT_HERSHEY_COMPLEX, 0.8, GREY_DARK);
 }
 
 
