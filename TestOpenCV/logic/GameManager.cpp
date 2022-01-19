@@ -83,6 +83,7 @@ void GameManager::playGame()
     
     phasePlay = true;
     currentRound = 1;
+    firstRound = true;
     currentPlayer = 1;
     currentThrow = 1;
     currentPoints = 0;
@@ -106,8 +107,9 @@ void GameManager::playGame()
         
         for (auto pin : pinsUp)
         {
+            currentPoints = 9 - (int) pinsUp.size();
             windowBowling.showPinUp(pin);
-            windowBowling.changeCurrentPoints(9 - (int) pinsUp.size());
+            windowBowling.changeCurrentPoints(currentPoints);
         }
         
         int keyPressed = waitKey(10);
@@ -117,11 +119,11 @@ void GameManager::playGame()
                 exitGame();
                 break;
             case 110:   // n
-                phasePlay = nextThrowPossible();
+                nextThrow();
+                nextPlayer();
+                phasePlay = checkNextRound();
                 break;
         }
-        
-        if (!phasePlay) break;
         
         windowBowling.changeCurrentThrow(currentThrow);
         windowBowling.changeCurrentPlayer(playersWithPoints[ (currentPlayer - 1) % numberOfPlayers ].first);
@@ -129,42 +131,66 @@ void GameManager::playGame()
         sortPlayerList();
         windowBowling.changeCurrentRank(playersWithPoints);
         windowBowling.updateWindow();
+
+        if (!phasePlay) break;
     }
     
-    if (currentRound > ROUNDS_TO_PLAY) restartGame();
+    if (currentRound == ROUNDS_TO_PLAY) restartGame();
     
     destroyWindow(WINDOW_BOWLING);
     destroyWindow(WINDOW_CAMERA);
-    
-    if (currentRound > ROUNDS_TO_PLAY) exitGame();
 }
 
 
-bool GameManager::nextThrowPossible()
+void GameManager::nextThrow()
 {
+    if(currentThrow <= numberOfThrows) { currentThrow++; }
     
-    // increase throws if numberOf throws is not reached yet
-    if (currentThrow < numberOfThrows)
+    auto playerIndex = (currentPlayer - 1) % numberOfPlayers;
+    playersWithPoints[ playerIndex ].second += currentPoints;
+    currentPoints = 0;
+}
+
+
+void GameManager::nextPlayer()
+{
+    if (currentThrow > numberOfThrows)
     {
-        currentThrow++;
-    }
-    // if numberOf throws is reached set it backa and switch to the next player
-    else
-    {
-        currentThrow = 1;   // reset throws
         currentPlayer++;
-        
-        // if the first player is active increase the round count
-        if ( (currentPlayer - 1) % numberOfPlayers == 0)
-        {
-            currentRound++;
-        }
-        
-        if (currentRound > MAX_NR_OF_ROUNDS)
-        {
-            return false;
-        }
+        currentThrow = 1;
     }
+}
+
+
+bool GameManager::checkNextRound()
+{
+    // if the first player is active and first round -> pass
+    if ((currentPlayer - 1) % numberOfPlayers == 0 && firstRound)
+    {
+        firstRound = false;
+        return true;
+    }
+    
+    // if the first player is active and smaller than the max rounds -> increase the round counter
+    if ((currentPlayer - 1) % numberOfPlayers == 0 && currentRound < MAX_NR_OF_ROUNDS)
+    {
+        currentRound++;
+        return true;
+    }
+    
+    // if the last round is reached and its the turn of player one -> end
+    if (lastRound && (currentPlayer - 1) % numberOfPlayers == 0)
+    {
+        return false;
+    }
+    
+    // last round reached
+    if ((currentPlayer - 1) % numberOfPlayers == 0 && currentRound == MAX_NR_OF_ROUNDS)
+    {
+        lastRound = true;
+        return true;
+    }
+    
     return true;
 }
 
