@@ -14,6 +14,7 @@
 		97143F482788D277009DCB69 /* Constants.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97143F472788D276009DCB69 /* Constants.cpp */; };
 		97143F4B27898C57009DCB69 /* WindowWelcome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97143F4927898C57009DCB69 /* WindowWelcome.cpp */; };
 		977B7B142719B5A000689448 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 977B7B132719B5A000689448 /* main.cpp */; };
+		97B2D3A42799C04C004FC37E /* FilterFromHSV.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97B2D3A22799C04C004FC37E /* FilterFromHSV.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -43,6 +44,8 @@
 		97143F4A27898C57009DCB69 /* WindowWelcome.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WindowWelcome.hpp; sourceTree = "<group>"; };
 		977B7B102719B5A000689448 /* TestOpenCV */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TestOpenCV; sourceTree = BUILT_PRODUCTS_DIR; };
 		977B7B132719B5A000689448 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		97B2D3A22799C04C004FC37E /* FilterFromHSV.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FilterFromHSV.cpp; sourceTree = "<group>"; };
+		97B2D3A32799C04C004FC37E /* FilterFromHSV.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FilterFromHSV.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +102,7 @@
 		977B7B122719B5A000689448 /* TestOpenCV */ = {
 			isa = PBXGroup;
 			children = (
+				97B2D3A12799C02F004FC37E /* test */,
 				9712D4CD278EE8630098AA5C /* logic */,
 				97143F40278865DF009DCB69 /* ui */,
 				977B7B132719B5A000689448 /* main.cpp */,
@@ -106,6 +110,15 @@
 				97143F472788D276009DCB69 /* Constants.cpp */,
 			);
 			path = TestOpenCV;
+			sourceTree = "<group>";
+		};
+		97B2D3A12799C02F004FC37E /* test */ = {
+			isa = PBXGroup;
+			children = (
+				97B2D3A22799C04C004FC37E /* FilterFromHSV.cpp */,
+				97B2D3A32799C04C004FC37E /* FilterFromHSV.hpp */,
+			);
+			path = test;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -192,6 +205,7 @@
 				97001AEA2795DE0400AFE64A /* WindowAlert.cpp in Sources */,
 				97143F4B27898C57009DCB69 /* WindowWelcome.cpp in Sources */,
 				97143F4627887F39009DCB69 /* CameraFeed.cpp in Sources */,
+				97B2D3A42799C04C004FC37E /* FilterFromHSV.cpp in Sources */,
 				977B7B142719B5A000689448 /* main.cpp in Sources */,
 				97143F482788D277009DCB69 /* Constants.cpp in Sources */,
 			);
