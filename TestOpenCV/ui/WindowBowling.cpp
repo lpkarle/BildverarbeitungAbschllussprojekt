@@ -34,7 +34,7 @@ void WindowBowling::initPins()
 }
 
 
-void WindowBowling::allPinsDown()
+void WindowBowling::showAllPinsDown()
 {
     for (auto pin : PIN_LOCATIONS)
     {
@@ -49,10 +49,10 @@ void WindowBowling::showPinUp(int pinNr)
     
     auto pin = PIN_LOCATIONS[pinNr - 1];
     
-    circle(window, pin, PIN_BACKGROUND_RADIUS, WHITE, FILLED);                                        // background
+    circle(window, pin, PIN_BACKGROUND_RADIUS, WHITE, FILLED);                                          // background
     circle(window, {pin.x + SHADOW_OFFSET, pin.y + SHADOW_OFFSET}, PIN_SHADOW_RADIUS, GREY, FILLED);    // shadow
-    circle(window, pin, PIN_RADIUS, WHITE, FILLED);                                                  // pin
-    circle(window, pin, PIN_COVER_RADIUS, RED, FILLED);                                               // cover
+    circle(window, pin, PIN_RADIUS, WHITE, FILLED);                                                     // pin
+    circle(window, pin, PIN_COVER_RADIUS, RED, FILLED);                                                 // cover
 }
 
 

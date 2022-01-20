@@ -21,7 +21,6 @@ using namespace std;
 class WindowBowling
 {
 private:
-    // Window constants
     const int WINDOW_WIDTH = 512;
     const int WINDOW_HEIGHT = 750;
     
@@ -61,8 +60,9 @@ public:
     void changeCurrentPoints(int currPoints);
     void changeCurrentRank(vector<pair<string, int>> playerRank);
     void showPinUp(int pinNr);
-    void allPinsDown();
+    void showAllPinsDown();
     void updateWindow();
 };
+
 
 #endif /* Window_Bowling_hpp */

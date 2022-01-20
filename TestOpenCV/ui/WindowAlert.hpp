@@ -21,8 +21,8 @@ using namespace std;
 class WindowAlert
 {
 private:
-    const Point locationBtnCancel[ 2 ] = { Point(10, 205), Point(250, 245) };
-    const Point locationBtnPlay[ 2 ]   = { Point(262, 205), Point(502, 245) };
+    const Point BTN_LOC_YES[ 2 ] = { Point(10, 205), Point(250, 245) };
+    const Point BTN_LOC_NO[ 2 ]  = { Point(262, 205), Point(502, 245) };
     
     Mat window;
     const int WINDOW_WIDH = 512;
