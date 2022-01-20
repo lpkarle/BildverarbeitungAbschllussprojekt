@@ -20,7 +20,6 @@ using namespace cv;
 class CameraFeed
 {
 private:
-    // constants image preproccessing
     const double RESIZE_FACTOR = 0.7;
     const Rect CENTER_OF_INTEREST = Rect(450, 50, 500, 500);
     const int H_MIN = 12, S_MIN = 46, V_MIN = 248, H_MAX = 49, S_MAX = 198, V_MAX = 255;
@@ -28,8 +27,7 @@ private:
     const Scalar YELLOW_HSV_UPPER_THRESH = Scalar(H_MAX, S_MAX, V_MAX);
     const int COVER_AREA_MIN = 580, COVER_AREA_MAX = 750;
     
-    // constants bottle/pin location
-    const vector<Point> PIN_AREAS =  // pin 1 to 9
+    const vector<Point> PIN_AREAS =
     {
         Point(175, 365),
         Point(95 , 285),

@@ -12,6 +12,7 @@
 using namespace cv;
 using namespace std;
 
+
 // ---------------------------------- Game
 const int MAX_NR_OF_PLAYERS = 3;
 const int MIN_NR_OF_PLAYERS = 1;
