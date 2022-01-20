@@ -12,57 +12,51 @@
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
-#include <iostream>
 #include "WindowBowling.hpp"
 
 using namespace cv;
-using namespace std;
-
-
-const Point locationBtnNextPlayer[ 2 ] = { Point(290, 80), Point(330, 105) };
-const Point locationBtnNextRound[ 2 ]  = { Point(385, 80), Point(425, 105) };
-
-const vector<Point> pinAreas =  // 1 to 9
-{
-    Point(175, 365),
-    Point(95 , 285),
-    Point(255, 285),
-    Point( 15, 203),
-    Point(175, 203),
-    Point(330, 203),
-    Point( 95, 121),
-    Point(255, 121),
-    Point(175,  40)
-};
-
-const int pinBoxWidth = 100, pinBoxHeight = 100;
 
 
 class CameraFeed
 {
 private:
-    VideoCapture cameraCapture;
+    // constants image preproccessing
+    const double RESIZE_FACTOR = 0.7;
+    const Rect CENTER_OF_INTEREST = Rect(450, 50, 500, 500);
+    const int H_MIN = 12, S_MIN = 46, V_MIN = 248, H_MAX = 49, S_MAX = 198, V_MAX = 255;
+    const Scalar YELLOW_HSV_LOWER_THRESH = Scalar(H_MIN, S_MIN, V_MIN);
+    const Scalar YELLOW_HSV_UPPER_THRESH = Scalar(H_MAX, S_MAX, V_MAX);
+    const int COVER_AREA_MIN = 580, COVER_AREA_MAX = 750;
     
+    // constants bottle/pin location
+    const vector<Point> PIN_AREAS =  // pin 1 to 9
+    {
+        Point(175, 365),
+        Point(95 , 285),
+        Point(255, 285),
+        Point( 15, 203),
+        Point(175, 203),
+        Point(330, 203),
+        Point( 95, 121),
+        Point(255, 121),
+        Point(175,  40)
+    };
+    const int PIN_BOX_SIZE = 100;
+    
+    VideoCapture cameraCapture;
     int key_pressed;
     
-    vector<Mat> preprocessImage(Mat frame);
-    
-    int hmin, smin, vmin, hmax, smax, vmax;
-    int detectBottles(Mat hsvImage);
-    void detectDots(Mat hsvImage);
-    
-    vector<vector<Point>> getContours(Mat img);
-    vector<vector<Point>> getBottleContours(vector<vector<Point>> contours);
-    vector<int> pinsUp(vector<vector<Point>> circleContours, Mat img);
-    
-    // test
-    void bottleLocation(Mat img);
+    vector<Mat> preprocessImageDilation(Mat frame);
+    vector<vector<Point>> getImageContours(Mat img);
+    vector<vector<Point>> filterCircleContourByAreaAndCornerPoints(vector<vector<Point>> contours);
+    vector<int> getStandingPins(vector<vector<Point>> circleContours, Mat img);
+    void markPinLocationWithRect(Mat img);
     
 public:
     CameraFeed();
     ~CameraFeed();
     
-    vector<int> start();
+    vector<int> startReceivingPinsUp();
 };
 
 

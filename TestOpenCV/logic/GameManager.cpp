@@ -95,7 +95,7 @@ void GameManager::playGame()
     while (phasePlay)
     {
         windowBowling.allPinsDown();
-        pinsUp = cameraFeed.start();
+        pinsUp = cameraFeed.startReceivingPinsUp();
         
         for (auto pin : pinsUp)
         {

@@ -23,7 +23,8 @@ CameraFeed::~CameraFeed()
     cameraCapture.release();
 }
 
-vector<int> CameraFeed::start()
+
+vector<int> CameraFeed::startReceivingPinsUp()
 {
     Mat frame, frameDilation;
     vector<int> pins;
@@ -31,56 +32,48 @@ vector<int> CameraFeed::start()
     cameraCapture >> frame;
     if(frame.empty()) return pins;
         
-    auto images = preprocessImage(frame);
+    auto images = preprocessImageDilation(frame);
     frameDilation = images[5];
         
     // get the shapes/contours from the eroded image
-    // and filter the bottles
-    vector<vector<Point>> bottleContours = getBottleContours(getContours(frameDilation));
+    // and filter the bottles / pins
+    vector<vector<Point>> bottleContours = filterCircleContourByAreaAndCornerPoints(getImageContours(frameDilation));
                 
     // check the bottle location and mark them in standard and hsv
-    bottleLocation(images[0]);
-    pins = pinsUp(bottleContours, images[0]);
+    markPinLocationWithRect(images[0]);
+    pins = getStandingPins(bottleContours, images[0]);
     
     return pins;   
 }
 
 
-vector<Mat> CameraFeed::preprocessImage(Mat frame)
+vector<Mat> CameraFeed::preprocessImageDilation(Mat frame)
 {
-    Mat imgResize, imgCrop, imgDest, imgHSV, imgBlur, imgCanny, imgDilation;
+    Mat imgResize, imgCrop, imgHSVYellow, imgHSV, imgBlur, imgCanny, imgDilation;
     
     // Resize the img
-    resize(frame, imgResize, Size(), 0.7, 0.7);
+    resize(frame, imgResize, Size(), RESIZE_FACTOR, RESIZE_FACTOR);
     
-    // Center the field
-    Rect roi(450, 50, 500, 500);
-    imgCrop = imgResize(roi);
+    // crop the image by centering the field
+    imgCrop = imgResize(CENTER_OF_INTEREST);
     
     cvtColor(imgCrop, imgHSV, COLOR_BGR2HSV);
     
-    // Yellow
-    hmin = 12; smin = 46; vmin = 248;
-    hmax = 49; smax = 198; vmax = 255;
+    inRange(imgHSV, YELLOW_HSV_LOWER_THRESH, YELLOW_HSV_UPPER_THRESH, imgHSVYellow);
     
-    Scalar lower(hmin, smin, vmin);
-    Scalar upper(hmax, smax, vmax);
-    inRange(imgHSV, lower, upper, imgDest);
-    
-    //cvtColor(img, img_grey, COLOR_BGR2GRAY);
-    GaussianBlur(imgDest, imgBlur, Size(3, 3), 3, 0);
-    Canny(imgBlur, imgCanny, 25, 75);
+    GaussianBlur(imgHSVYellow, imgBlur, Size(3, 3), 3, 0);
+    Canny(imgBlur, imgCanny, 0, 1); // zero and one thresh -> img is binary
     
     Mat kernel = getStructuringElement(MORPH_RECT, Size(3, 3));
     dilate(imgCanny, imgDilation, kernel);
     
-    vector<Mat> processedImages = { imgCrop, imgDest, imgHSV, imgBlur, imgCanny, imgDilation };
+    vector<Mat> processedImages = { imgCrop, imgHSVYellow, imgHSV, imgBlur, imgCanny, imgDilation };
     
     return processedImages;
 }
 
 
-vector<vector<Point>> CameraFeed::getContours(Mat img)
+vector<vector<Point>> CameraFeed::getImageContours(Mat img)
 {
     vector<vector<Point>> contours;
     vector<Vec4i> hierarchy;
@@ -89,16 +82,15 @@ vector<vector<Point>> CameraFeed::getContours(Mat img)
 }
 
 
-vector<vector<Point>> CameraFeed::getBottleContours(vector<vector<Point>> contours)
+vector<vector<Point>> CameraFeed::filterCircleContourByAreaAndCornerPoints(vector<vector<Point>> contours)
 {
     vector<vector<Point>> contourCircle;
     
-    // filter area
     for (int i = 0; i < contours.size(); i++)
     {
         int area = contourArea(contours[i]);
                 
-        if (area >= 580 && area <= 750)
+        if (area >= COVER_AREA_MIN && area <= COVER_AREA_MAX)
         {
             vector<Point> currentContour;
             float parameter = arcLength(contours[i], true);
@@ -115,19 +107,19 @@ vector<vector<Point>> CameraFeed::getBottleContours(vector<vector<Point>> contou
 }
 
 
-vector<int> CameraFeed::pinsUp(vector<vector<Point>> circleContours, Mat img)
+vector<int> CameraFeed::getStandingPins(vector<vector<Point>> circleContours, Mat img)
 {
     vector<int> pins;
     
     for (auto circ : circleContours)
     {
         auto boundRect = boundingRect(circ);
-        rectangle(img, boundRect.tl(), boundRect.br(), Scalar(0, 255, 0), 2);
+        rectangle(img, boundRect.tl(), boundRect.br(), RED, 2);
         
-        for (int i = 0; i < (int) pinAreas.size(); i++)
+        for (int i = 0; i < (int) PIN_AREAS.size(); i++)
         {
-            if (boundRect.tl().x >= pinAreas[i].x && boundRect.br().x <= pinAreas[i].x + pinBoxWidth &&
-                boundRect.tl().y >= pinAreas[i].y && boundRect.br().y <= pinAreas[i].y + pinBoxHeight)
+            if (boundRect.tl().x >= PIN_AREAS[i].x && boundRect.br().x <= PIN_AREAS[i].x + PIN_BOX_SIZE &&
+                boundRect.tl().y >= PIN_AREAS[i].y && boundRect.br().y <= PIN_AREAS[i].y + PIN_BOX_SIZE)
             {
                 pins.insert(pins.end(), i + 1);
                 break;
@@ -136,16 +128,14 @@ vector<int> CameraFeed::pinsUp(vector<vector<Point>> circleContours, Mat img)
     }
     
     imshow(WINDOW_CAMERA, img);
-    
     return pins;
 }
 
 
-// TEST
-void CameraFeed::bottleLocation(Mat img)
+void CameraFeed::markPinLocationWithRect(Mat img)
 {    
-    for (auto pin : pinAreas)
+    for (auto pin : PIN_AREAS)
     {
-        rectangle(img, pin, {pin.x + pinBoxWidth, pin.y + pinBoxHeight}, Scalar(255, 0, 0), 2);
+        rectangle(img, pin, {pin.x + PIN_BOX_SIZE, pin.y + PIN_BOX_SIZE}, BLUE, 2);
     }
 }
