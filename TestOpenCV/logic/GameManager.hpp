@@ -33,22 +33,16 @@ private:
     
     bool phaseInitialize;
     bool phasePlay;
-    
-    bool phaseThrow;
-    bool phaseGameFinished;
-    
-    
+        
     void initGame();
     void playGame();
     void initPlayerList();
     void sortPlayerList();
     static bool sortBySec(const pair<string,int> &a,
                    const pair<string,int> &b);
-    
     void nextThrow();
     void nextPlayer();
     bool checkNextRound();
-    
     void restartGame();
     void exitGame();
     

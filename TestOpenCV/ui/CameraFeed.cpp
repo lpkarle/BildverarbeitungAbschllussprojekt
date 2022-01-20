@@ -35,11 +35,8 @@ vector<int> CameraFeed::startReceivingPinsUp()
     auto images = preprocessImageDilation(frame);
     frameDilation = images[5];
         
-    // get the shapes/contours from the eroded image
-    // and filter the bottles / pins
     vector<vector<Point>> bottleContours = filterCircleContourByAreaAndCornerPoints(getImageContours(frameDilation));
                 
-    // check the bottle location and mark them in standard and hsv
     markPinLocationWithRect(images[0]);
     pins = getStandingPins(bottleContours, images[0]);
     
@@ -51,10 +48,8 @@ vector<Mat> CameraFeed::preprocessImageDilation(Mat frame)
 {
     Mat imgResize, imgCrop, imgHSVYellow, imgHSV, imgBlur, imgCanny, imgDilation;
     
-    // Resize the img
     resize(frame, imgResize, Size(), RESIZE_FACTOR, RESIZE_FACTOR);
     
-    // crop the image by centering the field
     imgCrop = imgResize(CENTER_OF_INTEREST);
     
     cvtColor(imgCrop, imgHSV, COLOR_BGR2HSV);

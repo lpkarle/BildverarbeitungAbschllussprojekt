@@ -14,6 +14,7 @@ GameManager::GameManager()
     initGame();
 }
 
+
 GameManager::~GameManager() { }
 
 
@@ -71,15 +72,11 @@ void GameManager::playGame()
 {
     phasePlay = true;
     currentRound = 1;
-    
     firstRound = true;
-    
     
     currentPlayer = 1;
     currentThrow = 1;
     currentPoints = 0;
-    
-    
     initPlayerList();
     
     WindowBowling windowBowling;
@@ -99,9 +96,7 @@ void GameManager::playGame()
         
         for (auto pin : pinsUp)
         {
-            
             windowBowling.showPinUp(pin);
-            
         }
         currentPoints = 9 - (int) pinsUp.size();
         windowBowling.changeCurrentPoints(currentPoints);
