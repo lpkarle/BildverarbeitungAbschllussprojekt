@@ -22,7 +22,10 @@ class CameraFeed
 private:
     const double RESIZE_FACTOR = 0.7;
     const Rect CENTER_OF_INTEREST = Rect(450, 50, 450, 500);
-    const int H_MIN = 12, S_MIN = 46, V_MIN = 248, H_MAX = 49, S_MAX = 198, V_MAX = 255;
+    //const int H_MIN = 12, S_MIN = 46, V_MIN = 248, H_MAX = 49, S_MAX = 198, V_MAX = 255;
+    
+    const int H_MIN = 0, S_MIN = 37, V_MIN = 220, H_MAX = 237, S_MAX = 255, V_MAX = 255;
+    
     const Scalar YELLOW_HSV_LOWER_THRESH = Scalar(H_MIN, S_MIN, V_MIN);
     const Scalar YELLOW_HSV_UPPER_THRESH = Scalar(H_MAX, S_MAX, V_MAX);
     const int COVER_AREA_MIN = 580, COVER_AREA_MAX = 750;

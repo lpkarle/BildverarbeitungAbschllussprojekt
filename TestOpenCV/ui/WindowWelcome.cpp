@@ -23,6 +23,9 @@ WindowWelcome::WindowWelcome()
 WindowWelcome::~WindowWelcome(void) { }
 
 
+/**
+ * Initialize the window Mat and place the static UI elements.
+ */
 void WindowWelcome::placeStaticElements()
 {
     window = Mat(WINDOW_HEIGHT, WINDOW_WIDTH, CV_8UC3, WHITE);
@@ -55,6 +58,10 @@ void WindowWelcome::placeStaticElements()
 }
 
 
+/**
+ * Changes the player amount by printing a white rectangle over the current value and create a new
+ * text element at the same position.
+ */
 void WindowWelcome::changePlayerAmount()
 {
     if ( nrOfPlayers <= MAX_NR_OF_PLAYERS && nrOfPlayers >= MIN_NR_OF_PLAYERS)
@@ -66,6 +73,10 @@ void WindowWelcome::changePlayerAmount()
 }
 
 
+/**
+ * Changes the round amount by printing a white rectangle over the current value and create a new
+ * text element at the same position.
+ */
 void WindowWelcome::changeRoundAmount()
 {
     if ( nrOfRounds <= MAX_NR_OF_ROUNDS && nrOfRounds >= MIN_NR_OF_ROUNDS)
@@ -77,6 +88,9 @@ void WindowWelcome::changeRoundAmount()
 }
 
 
+/**
+ * Static mouse callback.
+ */
 void WindowWelcome::onMouse(int event, int x, int y, int, void* userdata)
 {
     WindowWelcome* windowWelcome = reinterpret_cast<WindowWelcome*>(userdata);
@@ -84,6 +98,16 @@ void WindowWelcome::onMouse(int event, int x, int y, int, void* userdata)
 }
 
 
+/**
+ * Mouse callback listening on the left mouse down event.
+ *
+ * Handels the decrease and increase of the player and round amount.
+ * Checks if left mouse is down and if the coordinates match with the button areas.
+ *
+ * @param event Mouse event (left)
+ * @param x coordinate of the click
+ * @param y coordinate of the click
+ */
 void WindowWelcome::onMouse(int event, int x, int y)
 {
     if  ( event == EVENT_LBUTTONDOWN )
@@ -129,6 +153,9 @@ void WindowWelcome::onMouse(int event, int x, int y)
 }
 
 
+/**
+ * Show / update the window.
+ */
 void WindowWelcome::updateWindow()
 {
     imshow(WINDOW_WELCOME, window);

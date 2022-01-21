@@ -24,6 +24,11 @@ CameraFeed::~CameraFeed()
 }
 
 
+/**
+ * Starts the image processing.
+ *
+ * @return a vector of all standing pins
+ */
 vector<int> CameraFeed::startReceivingPinsUp()
 {
     Mat frame, frameDilation;
@@ -44,6 +49,21 @@ vector<int> CameraFeed::startReceivingPinsUp()
 }
 
 
+/**
+ * Function to preprocess the frame received from the webcam.
+ *
+ * Following steps:
+ * 1. Decrease the frame resolution by 0.7
+ * 2. Crop the game board (center of interest)
+ * 3. Convert the frame in HSV
+ * 4. Use the HSV thresholds for the yellow caps
+ * 5. Blur the image
+ * 6. Use canny to detect the contours
+ * 7. Close and thicken the contours by using dilation
+ *
+ * @param frame the original image
+ * @return the dilated image
+ */
 vector<Mat> CameraFeed::preprocessImageDilation(Mat frame)
 {
     Mat imgResize, imgCrop, imgHSVYellow, imgHSV, imgBlur, imgCanny, imgDilation;
@@ -68,6 +88,12 @@ vector<Mat> CameraFeed::preprocessImageDilation(Mat frame)
 }
 
 
+/**
+ * Extract all contours from the received image.
+ *
+ * @param img to detect contours
+ * @return all contours from img
+ */
 vector<vector<Point>> CameraFeed::getImageContours(Mat img)
 {
     vector<vector<Point>> contours;
@@ -77,6 +103,12 @@ vector<vector<Point>> CameraFeed::getImageContours(Mat img)
 }
 
 
+/**
+ * Filters all the detected contours by using the area of the contour and the edge amount.
+ *
+ * @param contours all detected contours
+ * @return only the circle contours of the bottles
+ */
 vector<vector<Point>> CameraFeed::filterCircleContourByAreaAndCornerPoints(vector<vector<Point>> contours)
 {
     vector<vector<Point>> contourCircle;
@@ -102,6 +134,13 @@ vector<vector<Point>> CameraFeed::filterCircleContourByAreaAndCornerPoints(vecto
 }
 
 
+/**
+ * Detects all standing pins by checking if a circle contour is in a defined rectangle range.
+ *
+ * @param circleContours detected circles in img
+ * @param img to show the detected pins
+ * @return all standing pins
+ */
 vector<int> CameraFeed::getStandingPins(vector<vector<Point>> circleContours, Mat img)
 {
     vector<int> pins;
@@ -127,6 +166,11 @@ vector<int> CameraFeed::getStandingPins(vector<vector<Point>> circleContours, Ma
 }
 
 
+/**
+ * Shows the predefined location areas of the bottles.
+ *
+ * @param img to draw the bottle location in
+ */
 void CameraFeed::markPinLocationWithRect(Mat img)
 {    
     for (auto pin : PIN_AREAS)

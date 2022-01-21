@@ -19,6 +19,9 @@ WindowBowling::WindowBowling()
 WindowBowling::~WindowBowling() {}
 
 
+/**
+ * Show all pins up when the game begins.
+ */
 void WindowBowling::initPins()  
 {
     int pinNr = 1;
@@ -34,6 +37,9 @@ void WindowBowling::initPins()
 }
 
 
+/**
+ * Show all pins knocked down by iterating over the PIN_LOCATIONS vector.
+ */
 void WindowBowling::showAllPinsDown()
 {
     for (auto pin : PIN_LOCATIONS)
@@ -43,6 +49,11 @@ void WindowBowling::showAllPinsDown()
 }
 
 
+/**
+ * Show up a pin by its number.
+ *
+ * @param pinNr number of the pin
+ */
 void WindowBowling::showPinUp(int pinNr)
 {
     if (pinNr < 1 || pinNr > 9) return;
@@ -56,6 +67,11 @@ void WindowBowling::showPinUp(int pinNr)
 }
 
 
+/**
+ * Show current player in titlebar.
+ *
+ * @param currPlayer the current player
+ */
 void WindowBowling::changeCurrentPlayer(string currPlayer)
 {
     rectangle(window, Point(255, 0), Point(512, 50), BLUE, FILLED);
@@ -63,6 +79,12 @@ void WindowBowling::changeCurrentPlayer(string currPlayer)
 }
 
 
+/**
+ * Show current game round.
+ *
+ * @param currRound the current round
+ * @param numberOfRounds the requested round amout
+ */
 void WindowBowling::changeCurrentRound(int currRound, int numberOfRounds)
 {
     rectangle(window, Point(100, 550), Point(200, 590), WHITE, FILLED);
@@ -70,6 +92,11 @@ void WindowBowling::changeCurrentRound(int currRound, int numberOfRounds)
 }
 
 
+/**
+ * Show current players throw.
+ *
+ * @param currThrow the new points
+ */
 void WindowBowling::changeCurrentThrow(int currThrow)
 {
     rectangle(window, Point(100, 600), Point(200, 640), WHITE, FILLED);
@@ -77,6 +104,11 @@ void WindowBowling::changeCurrentThrow(int currThrow)
 }
 
 
+/**
+ * Show current players points.
+ *
+ * @param currPoints the new points
+ */
 void WindowBowling::changeCurrentPoints(int currPoints)
 {
     rectangle(window, Point(100, 650), Point(200, 690), WHITE, FILLED);
@@ -84,6 +116,11 @@ void WindowBowling::changeCurrentPoints(int currPoints)
 }
 
 
+/**
+ * Show the game score.
+ *
+ * @param playerRank a vector of tuples (player and  points)
+ */
 void WindowBowling::changeCurrentRank(vector<pair<string, int>> playerRank)
 {
     rectangle(window, Point(295, 550), Point(500, 690), WHITE, FILLED);
@@ -105,6 +142,10 @@ void WindowBowling::changeCurrentRank(vector<pair<string, int>> playerRank)
     }
 }
 
+
+/**
+ * Initialize the window Mat and place the static UI elements.
+ */
 void WindowBowling::placeStaticElements()
 {
     window = Mat(WINDOW_HEIGHT, WINDOW_WIDTH, CV_8UC3, WHITE);
@@ -127,6 +168,9 @@ void WindowBowling::placeStaticElements()
 }
 
 
+/**
+ * Show / update the window.
+ */
 void WindowBowling::updateWindow()
 {
     imshow(WINDOW_BOWLING, window);

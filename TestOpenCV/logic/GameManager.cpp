@@ -18,6 +18,15 @@ GameManager::GameManager()
 GameManager::~GameManager() { }
 
 
+/**
+ * Phase initialize of the bowling game.
+ *
+ * Initializes a WelcomeWindow object and waits until the configuration is finished.
+ * Waits until 'return' or 'esc' is pressed.
+ *
+ * 'return' -> Next phase play.
+ * 'esc' -> Opens a close game dialog.
+ */
 void GameManager::initGame()
 {
     phaseInitialize = true;
@@ -47,6 +56,9 @@ void GameManager::initGame()
 }
 
 
+/**
+ * Initializes the player list with name and points.
+ */
 void GameManager::initPlayerList()
 {
     playersWithPoints.clear();
@@ -56,18 +68,37 @@ void GameManager::initPlayerList()
 }
 
 
+/**
+ * Sorts the player list for award ceremony.
+ */
 void GameManager::sortPlayerList()
 {
     sort(playersWithPoints.begin(), playersWithPoints.end(), sortBySec);
 }
 
 
+/**
+ * Compares two pair values. Used for sorting the playersWithPoints vector.
+ *
+ * @param a value a of the vector
+ * @param b value a of the vector
+ * @return true if a is greater than b
+ */
 bool GameManager::sortBySec(const pair<string,int> &a, const pair<string,int> &b)
 {
     return (a.second > b.second);
 }
 
 
+/**
+ * Phase play of the bowling game.
+ *
+ * Initializes a WindowBowling object for displaying the result and a CamerFeed object for showing and processing
+ * the camera feed. Waits until 'n' or 'esc' is pressed.
+ *
+ * 'n' -> Next throw.
+ * 'esc' -> Opens a close game dialog.
+ */
 void GameManager::playGame()
 {
     phasePlay = true;
@@ -129,12 +160,19 @@ void GameManager::playGame()
 }
 
 
+/**
+ * Increases the currentThrow if there are throws left.
+ */
 void GameManager::nextThrow()
 {
     if (currentThrow <= NR_OF_THROWS) { currentThrow++; }
 }
 
 
+/**
+ * Check if its the next players turn.
+ * If so increase currentPlayer and reset currentThrow to 1.
+ */
 void GameManager::nextPlayer()
 {
     if (currentThrow > NR_OF_THROWS)
@@ -154,6 +192,10 @@ void GameManager::nextPlayer()
 }
 
 
+/**
+ * Check if the round is finished.
+ * return false if the game is finised.
+ */
 bool GameManager::checkNextRound()
 {
     if (currentRound == numberOfRounds && currentPlayer % numberOfPlayers == 0)
@@ -169,6 +211,13 @@ bool GameManager::checkNextRound()
 }
 
 
+/**
+ * Opens a restart window alert.
+ *
+ * Waits until 'n' or 'y' is pressed.
+ * 'n' -> Back to current window.
+ * 'y' -> Opens a close game dialog.
+ */
 void GameManager::restartGame()
 {
     WindowAlert windowAlert(ALERT_GAME_FINISHED);
@@ -191,6 +240,13 @@ void GameManager::restartGame()
 }
 
 
+/**
+ * Opens a exit game window alert.
+ *
+ * Waits until 'n' or 'y' is pressed.
+ * 'n' -> Back to current window.
+ * 'y' -> Closes the program.
+ */
 void GameManager::exitGame()
 {
     WindowAlert windowAlert(ALERT_EXIT);

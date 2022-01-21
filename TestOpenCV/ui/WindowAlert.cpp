@@ -20,6 +20,9 @@ WindowAlert::WindowAlert(string msg)
 WindowAlert::~WindowAlert() { }
 
 
+/**
+ * Initialize the window Mat and place the static UI elements.
+ */
 void WindowAlert::placeStaticElements()
 {
     window = Mat(WINDOW_HEIGHT, WINDOW_WIDH, CV_8UC3, WHITE);
@@ -33,6 +36,11 @@ void WindowAlert::placeStaticElements()
 }
 
 
+/**
+ * Show the game result.
+ *
+ * @param playerRank a vector of tuples (player and  points)
+ */
 void WindowAlert::showResult(vector<pair<string, int>> playerRank)
 {
     rectangle(window, Point(10, 55), Point(500, 200), WHITE, FILLED);
@@ -56,6 +64,9 @@ void WindowAlert::showResult(vector<pair<string, int>> playerRank)
 }
 
 
+/**
+ * Show / update the window.
+ */
 void WindowAlert::updateWindow()
 {
     imshow(WINDOW_ALERT, window);
