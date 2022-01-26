@@ -44,6 +44,11 @@
 		97143F4A27898C57009DCB69 /* WindowWelcome.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WindowWelcome.hpp; sourceTree = "<group>"; };
 		977B7B102719B5A000689448 /* TestOpenCV */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TestOpenCV; sourceTree = BUILT_PRODUCTS_DIR; };
 		977B7B132719B5A000689448 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		97856CE127A15786002851DB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		97856CE327A157D7002851DB /* WindowExitGame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WindowExitGame.png; sourceTree = "<group>"; };
+		97856CE427A15800002851DB /* WindowGame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WindowGame.png; sourceTree = "<group>"; };
+		97856CE527A1580F002851DB /* WindowGameFinished.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WindowGameFinished.png; sourceTree = "<group>"; };
+		97856CE627A1582C002851DB /* WindowWelcome.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WindowWelcome.png; sourceTree = "<group>"; };
 		97B2D3A22799C04C004FC37E /* FilterFromHSV.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FilterFromHSV.cpp; sourceTree = "<group>"; };
 		97B2D3A32799C04C004FC37E /* FilterFromHSV.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FilterFromHSV.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -102,14 +107,27 @@
 		977B7B122719B5A000689448 /* TestOpenCV */ = {
 			isa = PBXGroup;
 			children = (
+				97856CE227A157A2002851DB /* asset */,
 				97B2D3A12799C02F004FC37E /* test */,
 				9712D4CD278EE8630098AA5C /* logic */,
 				97143F40278865DF009DCB69 /* ui */,
 				977B7B132719B5A000689448 /* main.cpp */,
 				97143F3E2785C50F009DCB69 /* Info.plist */,
 				97143F472788D276009DCB69 /* Constants.cpp */,
+				97856CE127A15786002851DB /* README.md */,
 			);
 			path = TestOpenCV;
+			sourceTree = "<group>";
+		};
+		97856CE227A157A2002851DB /* asset */ = {
+			isa = PBXGroup;
+			children = (
+				97856CE427A15800002851DB /* WindowGame.png */,
+				97856CE627A1582C002851DB /* WindowWelcome.png */,
+				97856CE527A1580F002851DB /* WindowGameFinished.png */,
+				97856CE327A157D7002851DB /* WindowExitGame.png */,
+			);
+			path = asset;
 			sourceTree = "<group>";
 		};
 		97B2D3A12799C02F004FC37E /* test */ = {
